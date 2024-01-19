@@ -1,0 +1,5 @@
+.env
+app/Models/user.php
+config/auth.php
+app/Http/Controllers/BaseController.php
+app/Http/Controllers/RegisterController.php

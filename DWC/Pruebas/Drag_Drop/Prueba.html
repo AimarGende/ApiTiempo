@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        .card {
+            height: 500px;
+            width: 300px;
+        }
+
+        #header {
+            background-color: grey;
+            height: 50px;
+            width: 100%;
+        }
+
+        #footer {
+            background-color: grey;
+            height: 50px;
+            width: 100%;
+        }
+
+        #cuerpo {
+            background-color: crimson;
+            height: 400px;
+            width: 100%;
+        }
+
+       
+    </style>
+</head>
+
+<body>
+    <div class="card Renteria">
+        <div id="header">
+            <img id="Temp" src="Temp.png" height="40px">
+            <img id="Hum" src="Humedad.png" height="40px">
+            <img id="Vien" src="Viento.png"  height="40px">
+        </div>
+        <div id="cuerpo">
+
+        </div>
+        <div id="footer">
+
+        </div>
+
+        
+       
+    </div>
+
+<script>
+    
+    var lugares = [
+            { "nombre": "Irun", "latitud": 43.3390, "longitud": -1.7896, "temperatura": "12ºC", "humedad": "23%", "viento": "22 m/s" },
+            { "nombre": "Donosti", "latitud": 43.3183, "longitud": -1.9812, "temperatura": "21ºC", "humedad": "53%", "viento": "12 m/s" },
+            { "nombre": "Renteria", "latitud": 43.3119, "longitud": -1.8985, "temperatura": "5ºC", "humedad": "39%", "viento": "32 m/s" },
+            { "nombre": "Bilbao", "latitud": 43.266134, "longitud": -2.936054, "temperatura": "30ºC", "humedad": "78%", "viento": "42 m/s" }
+        ]
+
+
+    let clases = []
+
+    $(document).ready(function () {
+        $("#Temp").on('dragstart', function (event) {
+            clases = $("#Temp").parent().parent()[0].className.split(" ")
+            event.originalEvent.dataTransfer.setData("text/plain", event.target.id);
+        });
+
+        $("#Hum").on('dragstart', function (event) {
+            clases = $("#Hum").parent().parent()[0].className.split(" ")
+            event.originalEvent.dataTransfer.setData("text/plain", event.target.id);
+        });
+
+        $("#Vien").on('dragstart', function (event) {
+            clases = $("#Vien").parent().parent()[0].className.split(" ")
+            console.log(clases)
+            event.originalEvent.dataTransfer.setData("text/plain", event.target.id);
+        });
+
+        $("#cuerpo").on('dragover', function (event) {
+            event.preventDefault();
+        });
+
+        $("#cuerpo").on('drop', function (event) {
+            event.preventDefault();
+            var data = event.originalEvent.dataTransfer.getData("text/plain");
+            var draggedElement = document.getElementById(data);
+
+            console.log(draggedElement)
+            let parrafo = document.createElement("p")
+            let div = document.createElement("div")
+            div.style.display = "inline-block"
+            div.style.margin = "5px"
+            parrafo.style.color = "white"
+
+            if (event.target !== draggedElement) {
+                $(draggedElement).attr('draggable', false)
+                lugares.forEach(element => {
+                    if (element.nombre == clases[1]) {
+                        switch (data) {
+                            case 'Temp':
+                                parrafo.innerHTML = element.temperatura
+                                break;
+                            case 'Hum':
+                                parrafo.innerHTML = element.humedad
+                                break;
+                            case 'Vien':
+                                parrafo.innerHTML = element.viento;
+                                break;
+                            case '':
+                                parrafo.innerHTML;
+                                break;
+                            case '':
+                                parrafo.innerHTML;
+                                break;
+                            case '':
+                                parrafo.innerHTML;
+                                break;
+                        }
+
+                        div.appendChild(draggedElement)
+                        div.appendChild(parrafo)
+                        event.target.appendChild(div);
+                    }
+                })
+            }
+        });
+    })
+</script>
+</body>
+
+</html>

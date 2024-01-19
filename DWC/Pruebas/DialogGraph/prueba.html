@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="jquery-ui-1.13.2.custom/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="jquery-ui-1.13.2.custom/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        #contenedor {
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+    <script>
+        $(function () {
+            $("#contenedor").dialog({
+                height: 400,
+                width: 600,
+                autoOpen: false,
+            });
+        });
+
+        function AbrirGraph() {
+            $("#contenedor").dialog("open");
+        }
+
+        function NumRandom() {
+            let numeros = new Array()
+            for (let i = 0; i < 10; i++) {
+                numeros.push(Math.floor(Math.random() * 20))
+            }
+            return numeros
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="AbrirGraph()">fasd</button>
+    <div id="contenedor" title="Irun">
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('canvas');
+        let graph
+        CrearGraph()
+        setInterval(() => {
+            console.log(typeof graph)
+            ActualizarGraph()
+        }, 3000);
+
+        function CrearGraph() {
+           
+            graph = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    datasets: [{
+                        label: 'Times i think me cago',
+                        data: NumRandom(),
+                        borderWidth: 1
+                    }, {
+                        label: 'Times i said me cago',
+                        data: NumRandom(),
+                        borderWidth: 1
+                    }]
+                },
+
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        function ActualizarGraph() {
+            for(let i = 0; i<graph.data.datasets.length; i++){
+                graph.data.datasets[i].data=NumRandom()
+            }
+            graph.update()
+        }
+    </script>
+
+</body>
+
+</html>

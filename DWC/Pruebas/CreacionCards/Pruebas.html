@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .ui-dialog-titlebar {
+            background-color: rgb(12, 183, 242);
+            color: white;
+        }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <p><img src="Logo.png" height="50">Nombre</p><a href="">LogOut</a>
+    </header>
+    <section>
+        <center>
+            <div id="mapid">
+                <script>
+                    var lugares = [
+                        { "nombre": "Irun", "latitud": 43.3390, "longitud": -1.7896, "temperatura": "12ºC", "humedad": "23%", "viento": "22 m/s", "nubes": "100%", "lluvia": "5000mm" },
+                        { "nombre": "Donosti", "latitud": 43.3183, "longitud": -1.9812, "temperatura": "21ºC", "humedad": "53%", "viento": "12 m/s", "nubes": "43%", "lluvia": "300mm" },
+                        { "nombre": "Renteria", "latitud": 43.3119, "longitud": -1.8985, "temperatura": "5ºC", "humedad": "39%", "viento": "32 m/s", "nubes": "0%", "lluvia": "0mm" },
+                        { "nombre": "Bilbao", "latitud": 43.266134, "longitud": -2.936054, "temperatura": "30ºC", "humedad": "78%", "viento": "42 m/s", "nubes": "200%", "lluvia": "10mm" }
+                    ]
+                    var map = L.map('mapid').setView([43.316893, -1.980888], 8);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© OpenStreetMap contributors'
+                    }).addTo(map);
+
+                    lugares.forEach(lugar => {
+                        var marker = L.marker([lugar.latitud, lugar.longitud]).addTo(map);
+                        marker._icon.classList.add(`Icon${lugar.nombre}`);
+                        marker.on("click", function () {
+                            let color = MostrarCard(lugar.nombre)
+                            if (color == 1) {
+                                $(document.getElementsByClassName(`Icon${lugar.nombre}`)[0]).css("filter", "hue-rotate(120deg)")
+                            }
+                            else {
+                                $(document.getElementsByClassName(`Icon${lugar.nombre}`)[0]).css("filter", "hue-rotate(0deg)")
+                            }
+                        })
+                        marker.bindTooltip(lugar.nombre, {
+                            permanent: false,    // El tooltip no será permanente
+                            direction: 'top',    // Se mostrará encima del marcador
+                            offset: L.point(-15, -8) // Desplazamiento del tooltip respecto al marcador
+                        })
+                    })
+                </script>
+            </div>
+        </center>
+        <div id="contenedor"></div>
+    </section>
+
+    <script src="scripts/cards.js"></script>
+    <script src="scripts/grafico.js"></script>
+    <script src="scripts/fetch.js"></script>
+    <script>
+        //Main
+        const contenedor = document.getElementById("contenedor")
+        let graficos = new Array()
+        let cont = 0
+
+        let idsZonas = ["donostialdea", "coast_zone", "great_bilbao"]
+        let localizaciones = RecogerLocalizaciones(idsZonas)
+
+
+        let fechaActual = new Date()
+        let fechaManana = new Date()
+        fechaActual.setMonth(fechaActual.getMonth() + 1)
+        fechaManana.setDate(fechaActual.getDate() + 1)
+        fechaManana.setMonth(fechaManana.getMonth() + 1)
+        let meses = Meses()
+        let dias = Dias()
+        //Codigo provincia 48Bizkaia 20Gipuzkoa
+        fetch(`https://www.el-tiempo.net/api/json/v2/provincias/20/municipios/20045`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("La solicitud no se pudo completar correctamente.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                // console.log(data["forecastText"])
+                console.log(data)
+            })
+
+        lugares.forEach(lugar => {
+            cont++
+            CrearCard(lugar, cont)
+            CrearDialog(lugar)
+        });
+
+        setInterval(() => {
+            lugares.forEach(lugar => {
+                ActualizarGraf(lugar.nombre)
+                ActualizarInfoCard(lugar)
+            })
+
+        }, 3000);
+
+
+        function Dias() {
+            let dias = new Array()
+            if (fechaActual.getDate().toString().length < 1) {
+                dias.push(fechaActual.getDate().toString().padStart(2, '0'))
+            }
+            else {
+                dias.push(fechaActual.getDate().toString())
+            }
+
+            if (fechaManana.getDate().toString().length < 2) {
+                dias.push(fechaManana.getDate().toString().padStart(2, '0'))
+            }
+            else {
+                dias.push(fechaManana.getDate().toString())
+            }
+            return dias
+        }
+        function Meses() {
+            let meses = new Array()
+            if (fechaActual.getMonth().toString().length < 2) {
+                meses.push(fechaActual.getMonth().toString().padStart(2, '0'))
+            }
+            else {
+                meses.push(fechaActual.getMonth().toString())
+            }
+
+            if (fechaManana.getMonth().toString().length < 2) {
+                meses.push(fechaManana.getMonth().toString().padStart(2, '0'))
+            }
+            else {
+                meses.push(fechaManana.getMonth().toString())
+            }
+            return meses
+        }
+
+
+
+        /*Drag && Drop*/
+        let clases = []
+
+        $(".Vien,.Nube,.Lluv").on('dragstart', function (event) {
+            clases = $(this).parent().parent()[0].className.split(" ")
+            event.originalEvent.dataTransfer.setData("text/plain", event.target.className.split(" ")[1]);
+        });
+
+        $(".cuerpo").on('dragover', function (event) {
+            event.preventDefault();
+        });
+
+        $(".cuerpo").on('drop', function (event) {
+            event.preventDefault();
+            if ($(this).parent()[0].className.split(" ")[1] == clases[1]) {
+                var data = event.originalEvent.dataTransfer.getData("text/plain");
+
+                var draggedElement = document.getElementsByClassName(data)[0];
+                draggedElement.style.display = "inline-block"
+                draggedElement.style.marginLeft = "2%"
+
+                let parrafo = document.createElement("p")
+                parrafo.style.color = "rgba(70, 202, 246)"
+                parrafo.style.display = "inline-block"
+
+                let div = document.createElement("div")
+                div.className += "Icono"
+                div.style.margin = "5px"
+                if (event.target !== draggedElement && event.target.tagName != "IMG" && event.target.tagName != "P") {
+                    $(draggedElement).attr('draggable', false)
+                    lugares.forEach(element => {
+                        if (element.nombre == clases[1]) {
+                            switch (data.match(/.{1,3}./)[0]) {
+                                case 'Vien':
+                                    parrafo.innerHTML = "Viento: " + element.viento;
+                                    break;
+                                case 'Nube':
+                                    parrafo.innerHTML = "Nubes: " + element.nubes;
+                                    break;
+                                case 'Lluv':
+                                    parrafo.innerHTML = "Lluvia: " + element.lluvia;
+                                    break;
+                                case '':
+                                    parrafo.innerHTML;
+                                    break;
+                            }
+                            div.appendChild(draggedElement)
+                            div.appendChild(parrafo)
+                            event.target.appendChild(div);
+                        }
+                    })
+                }
+            }
+            clases = []
+        });
+
+    </script>
+</body>
+
+</html>

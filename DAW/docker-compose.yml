@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+  CapDatos:
+          image:  docker.io/bitnami/laravel:10
+          ports:
+          - "8085:8000"
+          volumes:
+          - './CapDatos/:/app'
+  APIWeb:
+          image:  docker.io/bitnami/laravel:10
+          ports:
+          - "8086:8000"
+          volumes:
+          - './APIWeb/:/app'
+  LAMP:
+          image: httpd:latest
+          ports:
+          - "8082:80"
+  Inverso:
+          image: nginx:latest
+          ports:
+          - "81:80"
+          depends_on:
+          - LAMP
