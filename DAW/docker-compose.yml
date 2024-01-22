@@ -11,8 +11,14 @@ services:
           image:  docker.io/bitnami/laravel:10
           ports:
           - "8086:8000"
+          environment:
+            - DB_HOST=185.60.40.210
+            - DB_PORT=3306
+            - DB_USERNAME=Aimar
+            - DB_PASSWORD=12345678
+            - DB_DATABASE=Aimar
           volumes:
-          - './APIWeb/:/app'
+            - ./APIWeb/:/app
   LAMP:
           image: httpd:latest
           ports:

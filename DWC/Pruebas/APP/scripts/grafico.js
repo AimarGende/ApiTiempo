@@ -49,6 +49,7 @@
                     }
                 }
             });
+            console.log(graf)
             return graf
         }
 
@@ -61,7 +62,7 @@
             }
         }
 
-        function ActualizarGraf(lugar) {
+        function ActualizarGraf() {
             graficos.forEach(grafico => {
                 for (let i = 0; i < grafico.data.datasets.length; i++) {
                     grafico.data.datasets[i].data = NumRandom()
