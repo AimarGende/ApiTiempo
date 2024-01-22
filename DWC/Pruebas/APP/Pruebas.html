@@ -86,12 +86,12 @@
         let meses = Meses()
         let dias = Dias()
         //Codigo provincia 48Bizkaia 20Gipuzkoa
-        fetch(`https://www.el-tiempo.net/api/json/v2/provincias/20/municipios/20045`)
+        fetch(`https://www.el-tiempo.net/api/json/v2/provincias/20/municipios/20001`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error("La solicitud no se pudo completar correctamente.");
                 }
-                return response.json();
+                return response.text();
             })
             .then(data => {
                 // console.log(data["forecastText"])

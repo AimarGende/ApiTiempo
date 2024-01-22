@@ -49,7 +49,6 @@
                     }
                 }
             });
-            console.log(graf)
             return graf
         }
 
