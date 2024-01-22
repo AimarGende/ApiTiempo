@@ -56,4 +56,10 @@ class RegisterController extends BaseController
             return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
         } 
     }
+    
+    public function logout()
+    {
+        auth()->user()->currentAccessToken()->delete();
+        return [$message = 'Se ha cerrado la sesion correctamente'];
+    }
 }
