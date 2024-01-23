@@ -49,26 +49,29 @@ function RecogerDatos(codigos) {
                         return response.json();
                     })
                     .then(data => {
-
                         let ciudad = {
                             nombre: data["municipio"]["NOMBRE"],
                             latitud: data["municipio"]["LATITUD_ETRS89_REGCAN95"],
                             longitud: data["municipio"]["LONGITUD_ETRS89_REGCAN95"],
-                            temperatura: data["temperatura_actual"],
-                            humedad: data["humedad"],
-                            lluvia: data["lluvia"],
-                            viento: data["viento"],
-                            precipitacion: data["precipitacion"]
+                            temperatura: ((data["temperatura_actual"]=="") ? 0:data["temperatura_actual"]),
+                            humedad: ((data["humedad"]=="") ? 0:data["humedad"]),
+                            lluvia: ((data["lluvia"]=="") ? 0:data["lluvia"]),
+                            viento: ((data["viento"]=="") ? 0:data["viento"]),
+                            precipitacion: ((data["precipitacion"]=="") ? 0:data["precipitacion"])
                         }
                         ciudades.push(ciudad)
                     })
             }
         }
     }
-    setTimeout(() => {
-        ciudades.forEach(ciudad => {
-            console.log(ciudad)
-        });
-    }, 1000);
+    return ciudades
 
+}
+function InsertarDatos(ciudades) {
+    for (let ciudad of ciudades) {
+        fetch("http://185.60.40.210/dwc/Aimar/Proyecto/insertarDatosBase.php?ciudad=" + JSON.stringify(ciudad))
+    }
+}
+function ActualizarDatos(ciudad) {
+    fetch("http://185.60.40.210/dwc/Aimar/Proyecto/actualizarDatosBase.php?ciudad=" + JSON.stringify(ciudad))
 }

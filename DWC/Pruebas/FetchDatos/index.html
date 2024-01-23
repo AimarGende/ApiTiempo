@@ -30,7 +30,11 @@
                 }
             },
         }
-        RecogerDatos(codigos)
+
+        let ciudades = RecogerDatos(codigos)
+        setTimeout(() => {
+            InsertarDatos(ciudades)
+        }, 3000);
         // let idsZonas = ["donostialdea", "coast_zone", "great_bilbao"]
         // let localizaciones = RecogerLocalizaciones(idsZonas)
         // console.log(localizaciones)
