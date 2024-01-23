@@ -5,7 +5,8 @@ CREATE TABLE `localizaciones` (
   `temperatura` int(11) NOT NULL,
   `humedad` int(11) NOT NULL,
   `viento` int(11) NOT NULL,
-  `lluvia` int(11) NOT NULL
+  `lluvia` int(11) NOT NULL,
+  `precipitacion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `localizacionesHistorico` (
@@ -16,7 +17,8 @@ CREATE TABLE `localizacionesHistorico` (
   `temperatura` int(11) NOT NULL,
   `humedad` int(11) NOT NULL,
   `viento` int(11) NOT NULL,
-  `lluvia` int(11) NOT NULL
+  `lluvia` int(11) NOT NULL,
+  `precipitacion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TRIGGER `localizaciones_after_update` AFTER UPDATE ON `localizaciones`
@@ -30,7 +32,8 @@ BEGIN
         `temperatura`, 
         `humedad`, 
         `viento`, 
-        `lluvia`
+        `lluvia`,
+        `precipitacion`
     ) VALUES (
         NOW(),
         OLD.`nombre`, 
@@ -39,6 +42,7 @@ BEGIN
         OLD.`temperatura`, 
         OLD.`humedad`, 
         OLD.`viento`, 
-        OLD.`lluvia`        
+        OLD.`lluvia`
+        OLD.`precipitacion`        
     );
 END;

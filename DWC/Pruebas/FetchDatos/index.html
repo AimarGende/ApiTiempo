@@ -1,13 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="fetch.js"></script>
 </head>
+
 <body>
     <script>
-        /*Pruebas para conseguir todos los datos de la api con fetch en el formato correcto*/
+
+        let codigos = {
+            Bizkaia: {
+                ID: 48,
+                Ciudades: {
+                    Bilbao: 48020,
+                    Barakaldo: 48013
+                }
+
+            },
+            Gipuzkoa: {
+                ID: 20,
+                Ciudades: {
+                    Zarautz: 20079,
+                    Irun: 20045,
+                    Errenteria: 20067,
+                    Donosti: 20069
+                }
+            },
+        }
+        RecogerDatos(codigos)
+        // let idsZonas = ["donostialdea", "coast_zone", "great_bilbao"]
+        // let localizaciones = RecogerLocalizaciones(idsZonas)
+        // console.log(localizaciones)
     </script>
 </body>
+
 </html>

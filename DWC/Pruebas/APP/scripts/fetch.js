@@ -29,6 +29,5 @@ function RecogerLocalizaciones(idsZonas) {
                 }
             })
     }
-
     return localizaciones
 }
