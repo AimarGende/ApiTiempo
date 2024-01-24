@@ -1,12 +1,10 @@
 version: '3.3'
 services:
-  #Imagen linux con .php y .js para nutrir la base de datos
+  #Imagen apache con .php para nutrir la base de datos
   CapDatos:
-          image:  ubuntu:22.04
+          image:  httpd:latest
           ports:
-          - "8085:8000"
-          #volumes:
-          #- './NombreArchivo/:/carpetaMaquina'
+          - "8083:80"
   APIWeb:
           image:  docker.io/bitnami/laravel:10
           ports:
