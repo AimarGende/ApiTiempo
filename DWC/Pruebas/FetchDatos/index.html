@@ -53,8 +53,10 @@
                 ciudad["viento"] = parseInt(ciudad["viento"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))
                 ciudad["precipitacion"] = parseInt(ciudad["precipitacion"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))
             });
+            
             for (let ciudad of ciudades) {
                 fetch(`http://185.60.40.210/dwc/Aimar/Proyecto/actualizarBaseDatos.php?ciudad=` + JSON.stringify(ciudad))
+                        //`http://10.10.17.121:8083/Aimar/actualizarBaseDatos.php?ciudad=` + JSON.stringify(ciudad)
                 .then(response => {
                     if (!response.ok) {
                         throw new Error("La solicitud no se pudo completar correctamente.");

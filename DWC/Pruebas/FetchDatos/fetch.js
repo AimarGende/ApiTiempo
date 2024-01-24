@@ -74,6 +74,8 @@ function RecogerDatos(codigos) {
 function InsertarDatos(ciudades) {
     for (let ciudad of ciudades) {
         fetch("http://185.60.40.210/dwc/Aimar/Proyecto/insertarDatosBase.php?ciudad=" + JSON.stringify(ciudad))
+       
+        //`http://10.10.17.121:8083/Aimar/insertarDatosBase.php?ciudad=` + JSON.stringify(ciudad)
     }
 }
 function ActualizarDatos(ciudad) {

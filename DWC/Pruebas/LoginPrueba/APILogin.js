@@ -5,7 +5,7 @@ function logout() {
             'Content-Type': 'application/json'
         },
     }
-    fetch("http://localhost:8086/api/logout", config)
+    fetch("http://10.10.17.121:8086/api/logout", config)
         .then(response => {
             if (!response.ok) {
                 throw new Error("La solicitud no se pudo completar correctamente.");
@@ -34,7 +34,7 @@ function register() {
     }
 
 
-    fetch("http://localhost:8086/api/register", config)
+    fetch("http://10.10.17.121:8086/api/register", config)
         .then(response => {
             if (!response.ok) {
                 throw new Error("La solicitud no se pudo completar correctamente.");
@@ -58,7 +58,7 @@ function login() {
         },
         body: JSON.stringify(data)
     }
-    fetch("http://localhost:8086/api/login", config)
+    fetch("http://10.10.17.121:8086/api/login", config)
         .then(response => {
             if (!response.ok) {
                 throw new Error("La solicitud no se pudo completar correctamente.");
