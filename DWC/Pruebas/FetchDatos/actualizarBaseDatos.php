@@ -4,17 +4,24 @@ $servername = "185.60.40.210";
 $username = "Aimar";
 $password = "12345678";
 $Ciudad=$_REQUEST["ciudad"];
-$CiudadSeparada =explode(":",$Ciudad);
+$CiudadSeparada = explode(',',str_replace('}','',str_replace('{','',str_replace('"','',$Ciudad))));
 $link = @new mysqli($servername, $username, $password, $username);
 
-if ($link->connect_errno) {
-    die('Connect Error: ' . $link->connect_error);
+
+$sql = "UPDATE `localizaciones` SET ";
+for($i = 1; $i < count($CiudadSeparada);$i++){
+  $parametroSeparado = explode(':',$CiudadSeparada[$i]);
+  if($i == count($CiudadSeparada)-1){
+    $sql .= "`".$parametroSeparado[0]."`=".$parametroSeparado[1];
+  }else{
+    $sql .= "`".$parametroSeparado[0]."`=".$parametroSeparado[1].",";
   }
-$sql = 'UPDATE  localizaciones SET temperatura='..',humedad='..',viento='..',lluvia='..',precipitacion='..' WHERE nombre='.;
-  
+}
+
+$sql .= ' WHERE `nombre`="'.explode(':',$CiudadSeparada[0])[1].'"';
 
 $link->query($sql);
-
-
+echo $sql;
 mysqli_close($link);
+
 ?>

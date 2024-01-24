@@ -38,9 +38,8 @@ function RecogerDatos(codigos) {
     let ciudades = new Array()
     for (let provincia in codigos) {
         for (let carac in codigos[provincia]) {
-            for (let ciudad in codigos[provincia][carac]) {
-
-                let fetchURL = `https://www.el-tiempo.net/api/json/v2/provincias/${codigos[provincia].ID}/municipios/${codigos[provincia][carac][ciudad]}`
+            for (let ciudadCOD in codigos[provincia][carac]) {
+                let fetchURL = `https://www.el-tiempo.net/api/json/v2/provincias/${codigos[provincia].ID}/municipios/${codigos[provincia][carac][ciudadCOD]}`
                 fetch(fetchURL)
                     .then(response => {
                         if (!response.ok) {
@@ -49,15 +48,20 @@ function RecogerDatos(codigos) {
                         return response.json();
                     })
                     .then(data => {
+                        
                         let ciudad = {
                             nombre: data["municipio"]["NOMBRE"],
                             latitud: data["municipio"]["LATITUD_ETRS89_REGCAN95"],
                             longitud: data["municipio"]["LONGITUD_ETRS89_REGCAN95"],
-                            temperatura: ((data["temperatura_actual"]=="") ? 0:data["temperatura_actual"]),
-                            humedad: ((data["humedad"]=="") ? 0:data["humedad"]),
-                            lluvia: ((data["lluvia"]=="") ? 0:data["lluvia"]),
-                            viento: ((data["viento"]=="") ? 0:data["viento"]),
-                            precipitacion: ((data["precipitacion"]=="") ? 0:data["precipitacion"])
+                            temperatura: ((data["temperatura_actual"] == "") ? 0 : data["temperatura_actual"]),
+                            humedad: ((data["humedad"] == "") ? 0 : data["humedad"]),
+                            lluvia: ((data["lluvia"] == "") ? 0 : data["lluvia"]),
+                            viento: ((data["viento"] == "") ? 0 : data["viento"]),
+                            precipitacion: ((data["precipitacion"] == "") ? 0 : data["precipitacion"])
+                        }
+                        if(codigos[provincia][carac][ciudadCOD]==20069){
+                            console.log(ciudad.nombre)                            
+                            ciudad.nombre="Donostia/San Sebastian"
                         }
                         ciudades.push(ciudad)
                     })

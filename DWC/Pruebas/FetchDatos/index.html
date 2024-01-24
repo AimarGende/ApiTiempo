@@ -31,13 +31,41 @@
             },
         }
 
-        let ciudades = RecogerDatos(codigos)
+        let ciudades = new Object()
+
+        let fetchURL = `http://185.60.40.210/dwc/Aimar/Proyecto/recibirDatosBase.php`
+        fetch(fetchURL)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("La solicitud no se pudo completar correctamente.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                ciudades = data
+
+            })
         setTimeout(() => {
-            InsertarDatos(ciudades)
-        }, 3000);
-        // let idsZonas = ["donostialdea", "coast_zone", "great_bilbao"]
-        // let localizaciones = RecogerLocalizaciones(idsZonas)
-        // console.log(localizaciones)
+            ciudades.forEach(ciudad => {
+                ciudad["temperatura"] = parseInt(ciudad["temperatura"]) + (Math.round(Math.random()) * 2 - 1)
+                ciudad["humedad"] = parseInt(ciudad["humedad"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))
+                ciudad["lluvia"] = parseInt(ciudad["lluvia"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))
+                ciudad["viento"] = parseInt(ciudad["viento"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))
+                ciudad["precipitacion"] = parseInt(ciudad["precipitacion"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))
+            });
+            for (let ciudad of ciudades) {
+                fetch(`http://185.60.40.210/dwc/Aimar/Proyecto/actualizarBaseDatos.php?ciudad=` + JSON.stringify(ciudad))
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("La solicitud no se pudo completar correctamente.");
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                })
+            }
+           
+        }, 50);
     </script>
 </body>
 
