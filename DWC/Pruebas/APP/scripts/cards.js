@@ -28,9 +28,9 @@ function CrearCard(lugar, cont) {
 function CrearHeaderCard(lugar, cont) {
     let header = document.createElement("div")
     header.className += `header`
-    header.innerHTML = `<img class="Vien Vien${cont}" src="Viento.png" height="40px">
-                        <img class="Nube Nube${cont}" src="Nubes.png" height="40px">
-                        <img class="Lluv Lluv${cont}" src="Lluvia.png" height="40px">`
+    header.innerHTML = `<img class="Vien Vien${cont}" alt="Viento" src="Viento.png" height="40px">
+                        <img class="Nube Nube${cont}" alt="Nubes" src="Nubes.png" height="40px">
+                        <img class="Lluv Lluv${cont}" alt="Lluvia" src="Lluvia.png" height="40px">`
     return header
 }
 
@@ -50,10 +50,12 @@ function CrearCuerpoCard(lugar) {
         img.style.display = "inline-block"
         img.style.marginLeft = "2%"
         
+        
         switch (key) {
             case 'temperatura':
                 parrafo.innerHTML = "Temperatura: " + lugar.temperatura
                 img.src = "Temp.png"
+                img.alt = "Temperatura"
                 div.appendChild(img)
                 div.appendChild(parrafo)
                 cuerpo.appendChild(div)
@@ -61,9 +63,11 @@ function CrearCuerpoCard(lugar) {
             case 'humedad':
                 parrafo.innerHTML = "Humedad: " + lugar.humedad
                 img.src = "Humedad.png"
+                img.alt = "Humedad"
                 div.appendChild(img)
                 div.appendChild(parrafo)
                 cuerpo.appendChild(div)
+                
                 break;
         }
     }
