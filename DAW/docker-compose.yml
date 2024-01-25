@@ -4,7 +4,7 @@ services:
   CapDatos:
           image:  httpd:latest
           ports:
-          - "8083:80"
+          - "8083:80"  
   APIWeb:
           image:  docker.io/bitnami/laravel:10
           ports:
@@ -21,6 +21,8 @@ services:
           image: httpd:latest
           ports:
           - "8082:80"
+          volumes:
+          - ./APP:/usr/local/apache2/htdocs/
   Inverso:
           image: nginx:latest
           ports:
