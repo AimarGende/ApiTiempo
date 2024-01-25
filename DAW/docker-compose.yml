@@ -1,12 +1,11 @@
 version: '3.3'
 services:
-  #Imagen apache con .php para nutrir la base de datos
   CapDatos:
-          image:  httpd:latest
+          image:  docker.io/bitnami/laravel:10
           ports:
           - "8083:80" 
           volumes:
-          - ./CapturaDeDatos:/usr/local/apache2/htdocs/ 
+          - ./CapturaDeDatos/:/app 
   APIWeb:
           image:  docker.io/bitnami/laravel:10
           ports:
