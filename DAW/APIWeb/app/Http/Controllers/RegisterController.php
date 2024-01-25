@@ -59,7 +59,6 @@ class RegisterController extends BaseController
     
     public function logout()
     {
-        auth()->user()->currentAccessToken()->delete();
-        return [$message = 'Se ha cerrado la sesion correctamente'];
+        auth()->user()->tokens()->delete();
     }
 }

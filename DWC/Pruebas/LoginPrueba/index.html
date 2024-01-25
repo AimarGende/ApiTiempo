@@ -5,34 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="APILogin.js"></script>
 </head>
 
 <body>
     <form id="login">
-        <input type="text" id="email" class="Cuadro" placeholder="Email">
-        <input type="password" id="contrasena" class="Cuadro" placeholder="Contraseña">
-        <input type="submit" class="Iniciar" value="Inciar Sesion">
+        <div>
+            <input type="text" id="email" class="Cuadro" placeholder="Email">
+            <input type="password" id="contrasena" class="Cuadro" placeholder="Contraseña">
+            <input type="submit" class="Iniciar" value="Inciar Sesion">
+            <p>No tienes cuenta aun? <a href="Register.html">Registrate aqui</a></p>
+        </div>
     </form>
 
     <form id="register">
-        <input type="text" class="Cuadro" id="usuario" placeholder="Usuario">
-        <input type="text" class="Cuadro" id="correo" placeholder="Correo">
-        <input type="password" class="Cuadro" id="contrasenaReg" placeholder="Contraseña">
-        <input type="password" class="Cuadro" id="confcontrasena" placeholder="Repetir contraseña">
-        <input type="submit" class="Iniciar" value="Registrarse">
+        <div>
+            <input type="text" class="Cuadro" id="usuario" placeholder="Usuario">
+            <input type="text" class="Cuadro" id="correo" placeholder="Correo">
+            <input type="password" class="Cuadro" id="contrasenaReg" placeholder="Contraseña">
+            <input type="password" class="Cuadro" id="confcontrasena" placeholder="Repetir contraseña">
+            <input type="submit" class="Iniciar" value="Registrarse">
+            <p>Ya tienes cuenta? <a href="Login.html">Inicia sesion aqui</a></p>
+        </div>
     </form>
+
+    <button onclick="logout()">Logout</button>
+    <script src="APILogin.js"></script>
+
 </body>
-    <script>
-        let formRegister=document.getElementById("register")
-        let formLogin=document.getElementById("login")
-        formLogin.addEventListener("submit", event=>{
-            event.preventDefault()
-            login()
-        })
-        formRegister.addEventListener("submit", event=>{
-            event.preventDefault()
-            register()
-        })
-    </script>
+
+
 </html>
