@@ -4,7 +4,9 @@ services:
   CapDatos:
           image:  httpd:latest
           ports:
-          - "8083:80"  
+          - "8083:80" 
+          volumes:
+          - ./CapturaDeDatos:/usr/local/apache2/htdocs/ 
   APIWeb:
           image:  docker.io/bitnami/laravel:10
           ports:
