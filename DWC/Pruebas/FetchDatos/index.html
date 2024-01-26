@@ -43,31 +43,24 @@
             })
             .then(data => {
                 ciudades = data
-
             })
         setTimeout(() => {
-            ciudades.forEach(ciudad => {
-                ciudad["temperatura"] = parseInt(ciudad["temperatura"]) + (Math.round(Math.random()) * 2 - 1)
-                ciudad["humedad"] = parseInt(ciudad["humedad"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))
-                ciudad["lluvia"] = parseInt(ciudad["lluvia"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))
-                ciudad["viento"] = parseInt(ciudad["viento"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))
-                ciudad["precipitacion"] = parseInt(ciudad["precipitacion"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))
-            });
-            
+            ciudades = DatosAleatorios(ciudades)
+
             for (let ciudad of ciudades) {
                 fetch(`http://185.60.40.210/dwc/Aimar/Proyecto/actualizarBaseDatos.php?ciudad=` + JSON.stringify(ciudad))
-                        //`http://10.10.17.121:8083/Aimar/actualizarBaseDatos.php?ciudad=` + JSON.stringify(ciudad)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("La solicitud no se pudo completar correctamente.");
-                    }
-                    return response.text();
-                })
-                .then(data => {
-                })
+                    //`http://10.10.17.121:8083/Aimar/actualizarBaseDatos.php?ciudad=` + JSON.stringify(ciudad)
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error("La solicitud no se pudo completar correctamente.");
+                        }
+                        return response.text();
+                    })
+                    .then(data => {
+                    })
             }
-           
-        }, 50);
+
+        }, 1000);
     </script>
 </body>
 
