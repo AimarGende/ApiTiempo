@@ -11,7 +11,7 @@ services:
             - DB_PASSWORD=12345678
             - DB_DATABASE=Aimar
           volumes:
-            - ./APIWeb/:/app
+            - ./CapDeDatos/:/app
   # Plan B
   # capdatos:
   #         build: 
@@ -26,7 +26,7 @@ services:
   #          - DB_PASSWORD=12345678
   #          - DB_DATABASE=Aimar
   #         volumes:
-  #         - ./CapturaDeDatos/:/var/www/html
+  #         - ./CapturaDeDatosPHP/:/var/www/html
   APIWeb:
           image:  docker.io/bitnami/laravel:10
           ports:
