@@ -3,7 +3,7 @@ services:
   CapDatos:
           image:  docker.io/bitnami/laravel:10
           ports:
-          - "8085:8000"
+          - "8083:8000"
           environment:
             - DB_HOST=185.60.40.210
             - DB_PORT=3306

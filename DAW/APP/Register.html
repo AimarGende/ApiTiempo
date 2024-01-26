@@ -24,9 +24,9 @@
 
         #Cuerpo {
             margin-top: 14vh;
-            height: 70vh;
+            height: 50vh;
             background-color: rgba(70, 202, 246, 0.75);
-            width: 30%;
+            width: 30vw;
             border-radius: 19px;
         }
 
@@ -37,6 +37,7 @@
 
         form div {
             width: 85%;
+            margin-top: 4vh;
             color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
@@ -61,7 +62,7 @@
             width: 100%;
             height: 5vh;
             border-radius: 12px;
-            border:none;
+            border: none;
             background-color: rgb(12, 183, 242);
             color: white;
             padding: 1.5%;
@@ -77,75 +78,38 @@
             text-decoration: none;
         }
 
-         @media (max-width:1024px) {
+        @media (max-width:1024px) {
             #form {
                 margin-top: 10vh;
             }
+
             #canvas {
                 margin-top: 6vh;
             }
+
             #Cuerpo {
                 font-size: 60%;
-                height: 70%;
+                height: 55%;
                 width: 50%;
             }
-        } 
-
-        @media (max-width:500px) {
-           
-            #Cuerpo {
-                font-size: 60%;
-                height: 70%;
-                width: 100%;
-            }
-        } 
+        }
     </style>
 </head>
 
 <body>
 
     <div id="Cuerpo">
-        <canvas id="canvas" height="400"></canvas>
-            <form id="login" onsubmit="login(event)">
-                <div>
-                    <input type="text" id="email" class="Cuadro" placeholder="Email">
-                    <input type="password" id="contrasena" class="Cuadro" placeholder="Contraseña">
-                    <input type="submit" class="Iniciar" value="Inciar Sesion">
-                    <p>No tienes cuenta aun? <a href="Register.html">Registrate aqui</a></p>
-                </div>
-            </form>
+        <form id="register" onsubmit="register(event)">
+            <div>
+                <input type="text" class="Cuadro" id="usuario" placeholder="Usuario">
+                <input type="text" class="Cuadro" id="correo" placeholder="Correo">
+                <input type="password" class="Cuadro" id="contrasenaReg" placeholder="Contraseña">
+                <input type="password" class="Cuadro" id="confcontrasena" placeholder="Repetir contraseña">
+                <input type="submit" class="Iniciar" value="Registrarse">
+                <p>Ya tienes cuenta? <a href="index.html">Inicia sesion aqui</a></p>
+            </div>
+        </form>
     </div>
-
-
-
-
-    <!-- Logo inicio sesion -->
-    <script>
-        var elem = document.getElementById('canvas')
-        var canvas = elem.getContext('2d')
-        elem.heigth = elem.width
-        //Circulo grande
-        canvas.beginPath();
-        canvas.arc(150, 200, 130, 0, Math.PI * 2, true);
-        canvas.fillStyle = 'rgb(12, 183, 242)';
-        canvas.closePath();
-        canvas.fill();
-        canvas.globalCompositeOperation = "source-atop";
-
-        //Cabeza
-        canvas.beginPath();
-        canvas.arc(150, 170, 30, 0, Math.PI * 2, true);
-        canvas.closePath();
-        canvas.strokeStyle = "white"
-        canvas.stroke();
-
-        //Cuerpo
-        canvas.beginPath();
-        canvas.arc(150, 300, 75, 0, Math.PI, true);
-        canvas.closePath();
-        canvas.stroke();
-
-    </script>
     <script src="scripts/APILogin.js"></script>
 </body>
 
