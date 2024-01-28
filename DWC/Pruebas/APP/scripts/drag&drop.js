@@ -25,7 +25,7 @@ $(".cuerpo").on('drop', function (event) {
         let div = document.createElement("div")
         div.className += "Icono"
         div.style.margin = "5px"
-        if (event.target !== draggedElement && event.target.tagName != "IMG" && event.target.tagName != "P") {
+        if (event.target !== draggedElement && event.target.tagName != "IMG" && event.target.tagName != "P" && event.target.className != "Icono") {
             $(draggedElement).attr('draggable', false)
             lugares.forEach(element => {
                 if (element.nombre == clases[1]) {

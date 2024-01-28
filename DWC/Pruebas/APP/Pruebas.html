@@ -29,32 +29,20 @@
     </header>
     <section>
         <center>
-            <div id="mapid">            </div>
+            <div id="mapid"> </div>
         </center>
         <div id="contenedor"></div>
     </section>
     <script src="scripts/variables.js"></script>
+    <script src="scripts/fetch.js"></script>
     <script src="scripts/cards.js"></script>
     <script src="scripts/grafico.js"></script>
-    <script src="scripts/fetch.js"></script>
     <script src="scripts/mapa.js"></script>
 
     <script>
         //Main
-
-        let idsZonas = ["donostialdea", "coast_zone", "great_bilbao"]
-        let localizaciones = RecogerLocalizaciones(idsZonas)
-
-
-        let fechaActual = new Date()
-        let fechaManana = new Date()
-        fechaActual.setMonth(fechaActual.getMonth() + 1)
-        fechaManana.setDate(fechaActual.getDate() + 1)
-        fechaManana.setMonth(fechaManana.getMonth() + 1)
-        let meses = Meses()
-        let dias = Dias()
-
-
+        RecogerDatos(codigos)
+        predicciones()
         lugares.forEach(lugar => {
             cont++
             CrearCard(lugar, cont)
@@ -68,42 +56,6 @@
             })
 
         }, 3000);
-
-
-        function Dias() {
-            let dias = new Array()
-            if (fechaActual.getDate().toString().length < 1) {
-                dias.push(fechaActual.getDate().toString().padStart(2, '0'))
-            }
-            else {
-                dias.push(fechaActual.getDate().toString())
-            }
-
-            if (fechaManana.getDate().toString().length < 2) {
-                dias.push(fechaManana.getDate().toString().padStart(2, '0'))
-            }
-            else {
-                dias.push(fechaManana.getDate().toString())
-            }
-            return dias
-        }
-        function Meses() {
-            let meses = new Array()
-            if (fechaActual.getMonth().toString().length < 2) {
-                meses.push(fechaActual.getMonth().toString().padStart(2, '0'))
-            }
-            else {
-                meses.push(fechaActual.getMonth().toString())
-            }
-
-            if (fechaManana.getMonth().toString().length < 2) {
-                meses.push(fechaManana.getMonth().toString().padStart(2, '0'))
-            }
-            else {
-                meses.push(fechaManana.getMonth().toString())
-            }
-            return meses
-        }
     </script>
     <script src="scripts/drag&drop.js"></script>
 </body>

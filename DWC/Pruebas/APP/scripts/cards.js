@@ -49,8 +49,8 @@ function CrearCuerpoCard(lugar) {
         img.height = 40
         img.style.display = "inline-block"
         img.style.marginLeft = "2%"
-        
-        
+
+
         switch (key) {
             case 'temperatura':
                 parrafo.innerHTML = "Temperatura: " + lugar.temperatura
@@ -67,10 +67,13 @@ function CrearCuerpoCard(lugar) {
                 div.appendChild(img)
                 div.appendChild(parrafo)
                 cuerpo.appendChild(div)
-                
+
                 break;
         }
     }
+
+    predicciones(cuerpo, lugar.nombre)
+
     return cuerpo
 }
 
@@ -90,26 +93,28 @@ function ActualizarInfoCard(lugar) {
     for (let card of cuerpocard) {
         if (card.parentElement.className.split(" ")[1] == lugar.nombre) {
             for (let icono of card.children) {
-                switch (icono.children[1].innerHTML.split(": ")[0]) {
-                    case "Temperatura":
-                        icono.children[1].innerHTML= `Temperatura: ${NumRandom()[0]}ºC` // icono.children[1].innerHTML= `Temperatura: ${lugar.temperatura}ºC`
-                        break;
-                    case "Humedad":
-                        icono.children[1].innerHTML= `Humedad: ${NumRandom()[0]}%` // icono.children[1].innerHTML= `Humedad: ${lugar.humedad}ºC`
-                        break;
-                    case "Viento":
-                        icono.children[1].innerHTML= `Viento: ${NumRandom()[0]}m/s` // icono.children[1].innerHTML= `Viento: ${lugar.viento}ºC`
-                        break;
-                    case "Nubes":
-                        icono.children[1].innerHTML= `Nubes: ${NumRandom()[0]}%` // icono.children[1].innerHTML= `Nubes: ${lugar.nubes}ºC`
-                        break;
-                    case "Lluvia":
-                        icono.children[1].innerHTML= `Lluvia: ${NumRandom()[0]}mm` // icono.children[1].innerHTML= `Lluvia: ${lugar.lluvia}ºC`
-                        break;
-                    default:
-                        break;
-                }
+                if (icono.className == "Icono") {
+                    switch (icono.children[1].innerHTML.split(": ")[0]) {
+                        case "Temperatura":
+                            icono.children[1].innerHTML = `Temperatura: ${NumRandom()[0]}ºC` // icono.children[1].innerHTML= `Temperatura: ${lugar.temperatura}ºC`
+                            break;
+                        case "Humedad":
+                            icono.children[1].innerHTML = `Humedad: ${NumRandom()[0]}%` // icono.children[1].innerHTML= `Humedad: ${lugar.humedad}ºC`
+                            break;
+                        case "Viento":
+                            icono.children[1].innerHTML = `Viento: ${NumRandom()[0]}m/s` // icono.children[1].innerHTML= `Viento: ${lugar.viento}ºC`
+                            break;
+                        case "Nubes":
+                            icono.children[1].innerHTML = `Nubes: ${NumRandom()[0]}%` // icono.children[1].innerHTML= `Nubes: ${lugar.nubes}ºC`
+                            break;
+                        case "Lluvia":
+                            icono.children[1].innerHTML = `Lluvia: ${NumRandom()[0]}mm` // icono.children[1].innerHTML= `Lluvia: ${lugar.lluvia}ºC`
+                            break;
+                        default:
+                            break;
+                    }
 
+                }
             }
         }
     }
