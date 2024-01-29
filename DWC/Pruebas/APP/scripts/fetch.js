@@ -1,6 +1,30 @@
 
 //`https://api.euskadi.eus/euskalmet/geo/regions/basque_country/zones/donostialdea/locations` errenteria y donostia
 
+let codigos = {
+    Bizkaia: {
+        ID: 48,
+        Ciudades: {
+            Bilbao: 48020,
+            Barakaldo: 48013
+        }
+
+    },
+    Gipuzkoa: {
+        ID: 20,
+        Ciudades: {
+            Zarautz: 20079,
+            Irun: 20045,
+            Errenteria: 20067,
+            Donosti: 20069
+        }
+    },
+}
+let ciudades = new Array()
+RecogerDatos(codigos)
+setTimeout(() => {
+    console.log(ciudades)
+}, 4000);
 function predicciones(cuerpoCard, lugar) {
     let div = document.createElement("div")
     div.className += `prediccion prediccion${lugar}`
@@ -119,7 +143,6 @@ function RecogerLocalizaciones(idsZonas) {
 }
 
 function RecogerDatos(codigos) {
-    let ciudades = new Array()
     for (let provincia in codigos) {
         for (let carac in codigos[provincia]) {
             for (let ciudadCOD in codigos[provincia][carac]) {
@@ -144,7 +167,6 @@ function RecogerDatos(codigos) {
                             precipitacion: ((data["precipitacion"] == "") ? 0 : data["precipitacion"])
                         }
                         if (codigos[provincia][carac][ciudadCOD] == 20069) {
-                            console.log(ciudad.nombre)
                             ciudad.nombre = "Donostia/San Sebastian"
                         }
                         ciudades.push(ciudad)
@@ -153,6 +175,7 @@ function RecogerDatos(codigos) {
             }
         }
     }
+
 }
 function InsertarDatos(ciudades) {
     for (let ciudad of ciudades) {

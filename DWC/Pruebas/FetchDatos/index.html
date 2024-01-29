@@ -11,52 +11,23 @@
 <body>
     <script>
 
-        let codigos = {
-            Bizkaia: {
-                ID: 48,
-                Ciudades: {
-                    Bilbao: 48020,
-                    Barakaldo: 48013
-                }
 
-            },
-            Gipuzkoa: {
-                ID: 20,
-                Ciudades: {
-                    Zarautz: 20079,
-                    Irun: 20045,
-                    Errenteria: 20067,
-                    Donosti: 20069
-                }
-            },
-        }
-
-        let ciudades = new Object()
-        let config ={
-            headers:{
-                'Access-Control-Allow-Origin': 'http:///10.10.17.121:8083'
-            }
-        }
-        
-        fetch('http:///10.10.17.121:8083/recibirDatosBase.php', config)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("La solicitud no se pudo completar correctamente.");
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data)
-                ciudades = data
-            })
-        setTimeout(() => {
-            ciudades = DatosAleatorios(ciudades)
-            for (let ciudad of ciudades) {
-                fetch(`http:///10.10.17.121:8083/actualizarBaseDatos.php?ciudad=` + JSON.stringify(ciudad))
-                    //`http://10.10.17.121:8083/Aimar/actualizarBaseDatos.php?ciudad=` + JSON.stringify(ciudad)
-            }
-
-        }, 1000);
+           
+        // fetch('http://185.60.40.210/dwc/Aimar/Ajax/recibirDatosBase.php')
+        //     .then(response => {
+        //         if (!response.ok) {
+        //             throw new Error("La solicitud no se pudo completar correctamente.");
+        //         }
+        //         return response.text();
+        //     })
+        //     .then(data => {
+        //         console.log(data)
+        //         ciudades = data
+        //     })
+        // setTimeout(() => {
+        //     ciudades = DatosAleatorios(ciudades)
+        //     console.log(ciudades)
+        // }, 1000);
     </script>
 </body>
 

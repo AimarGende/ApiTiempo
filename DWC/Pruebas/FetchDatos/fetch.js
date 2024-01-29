@@ -1,14 +1,138 @@
-const options = {
-    method: 'GET',
-    headers: {
-        Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJtZXQwMS5hcGlrZXkiLCJpc3MiOiJJRVMgUExBSUFVTkRJIEJISSBJUlVOIiwiZXhwIjoyMjM4MTMxMDAyLCJ2ZXJzaW9uIjoiMS4wLjAiLCJpYXQiOjE2Mzk3NDc5MDcsImVtYWlsIjoiaWtjZXVAcGxhaWF1bmRpLm5ldCJ9.WmgNDEzi60hZ9lzj0lkmLEVgUdJN8Mw24kJacq2u9BMuhaycjTKqerRp9QmnVbez3iyqmsABu93rNPeFAuKvPIohyRBe2a1j4iclFT7Ro5slaBlhsTWiaB874mKCMbX2JSNYu_IqArqEcVblHxfZEtdT2jo1aw63-KGpggSzyYpAUeM32WGsUGs34L1CF55bwmj3risa8KMp9BfB4cOykcP4qX-lE2P2MiL0ea2lhUTWtAv943JhsHNTYKBwXU56otJwHMKPwCVL3_CwhLgYcoyFtLGKx9zFm2wTmJqegFJWtZ2CSoRBoXkefsq9atjTZ2OfSd4pPolRVo2dlCLY8g'
+
+//`https://api.euskadi.eus/euskalmet/geo/regions/basque_country/zones/donostialdea/locations` errenteria y donostia
+const optionsPOST = {
+    method: 'POST',
+}
+let codigos = {
+    Bizkaia: {
+        ID: 48,
+        Ciudades: {
+            Bilbao: 48020,
+            Barakaldo: 48013
+        }
+
+    },
+    Gipuzkoa: {
+        ID: 20,
+        Ciudades: {
+            Zarautz: 20079,
+            Irun: 20045,
+            Errenteria: 20067,
+            Donosti: 20069
+        }
+    },
+}
+let ciudades = new Array()
+RecogerDatos(codigos)
+setTimeout(() => {
+    for (let i = 0; i < ciudades.length; i++) {
+        fetch(`http://10.10.17.121:8083/api/insertar?nombre=${ciudades[i].nombre}&latitud=${ciudades[i].latitud}&longitud=${ciudades[i].longitud}&temperatura=${ciudades[i].temperatura}&humedad=${ciudades[i].humedad}&viento=${ciudades[i].viento}&lluvia=${ciudades[i].lluvia}&precipitacion=${ciudades[i].precipitacion}`, optionsPOST)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("La solicitud no se pudo completar correctamente.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data)
+            })
+    }
+}, 1000);
+
+
+
+function predicciones(cuerpoCard, lugar) {
+    let div = document.createElement("div")
+    div.className += `prediccion prediccion${lugar}`
+    switch (lugar) {
+        case 'Irun':
+            fetch(`https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zones/coast_zone/locations/irun/forecast/at/${fechaActualSeparada[0]}/${fechaActualSeparada[1]}/${fechaActualSeparada[2]}/for/${fechaMananaSeparada[0]}${fechaMananaSeparada[1]}${fechaMananaSeparada[2]}`, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("La solicitud no se pudo completar correctamente.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data["forecastText"]["SPANISH"])
+                    console.log("Irun")
+                    div.innerHTML = data["forecastText"]["SPANISH"]
+                    cuerpoCard.appendChild(div)
+                })
+            break;
+        case 'Donosti':
+            fetch(`https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zones/donostialdea/locations/donostia/forecast/at/${fechaActualSeparada[0]}/${fechaActualSeparada[1]}/${fechaActualSeparada[2]}/for/${fechaMananaSeparada[0]}${fechaMananaSeparada[1]}${fechaMananaSeparada[2]}`, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("La solicitud no se pudo completar correctamente.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data["forecastText"]["SPANISH"])
+                    console.log("Donosti")
+                    div.innerHTML = data["forecastText"]["SPANISH"]
+                    cuerpoCard.appendChild(div)
+                })
+            break;
+        case 'Bilbao':
+            fetch(`https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zones/great_bilbao/locations/bilbao/forecast/at/${fechaActualSeparada[0]}/${fechaActualSeparada[1]}/${fechaActualSeparada[2]}/for/${fechaMananaSeparada[0]}${fechaMananaSeparada[1]}${fechaMananaSeparada[2]}`, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("La solicitud no se pudo completar correctamente.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data["forecastText"]["SPANISH"])
+                    console.log("Bilbao")
+                    div.innerHTML = data["forecastText"]["SPANISH"]
+                    cuerpoCard.appendChild(div)
+                })
+            break;
+        case 'Zarautz':
+            fetch(`https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zones/coast_zone/locations/zarautz/forecast/at/${fechaActualSeparada[0]}/${fechaActualSeparada[1]}/${fechaActualSeparada[2]}/for/${fechaMananaSeparada[0]}${fechaMananaSeparada[1]}${fechaMananaSeparada[2]}`, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("La solicitud no se pudo completar correctamente.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    div.innerHTML = data["forecastText"]["SPANISH"]
+                    cuerpoCard.appendChild(div)
+                })
+            break;
+        case 'Errenteria':
+            fetch(`https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zones/donostialdea/locations/errenteria/forecast/at/${fechaActualSeparada[0]}/${fechaActualSeparada[1]}/${fechaActualSeparada[2]}/for/${fechaMananaSeparada[0]}${fechaMananaSeparada[1]}${fechaMananaSeparada[2]}`, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("La solicitud no se pudo completar correctamente.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data["forecastText"]["SPANISH"])
+                    console.log("Errenteria")
+                    div.innerHTML = data["forecastText"]["SPANISH"]
+                    cuerpoCard.appendChild(div)
+                })
+            break;
+        case 'Barakaldo':
+            fetch(`https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zones/great_bilbao/locations/barakaldo/forecast/at/${fechaActualSeparada[0]}/${fechaActualSeparada[1]}/${fechaActualSeparada[2]}/for/${fechaMananaSeparada[0]}${fechaMananaSeparada[1]}${fechaMananaSeparada[2]}`, options)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("La solicitud no se pudo completar correctamente.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    div.innerHTML = data["forecastText"]["SPANISH"]
+                    cuerpoCard.appendChild(div)
+                })
+            break;
     }
 }
-//`https://api.euskadi.eus/euskalmet/geo/regions/basque_country/zones/donostialdea/locations` errenteria y donostia
-//`https://api.euskadi.eus/euskalmet/geo/regions/basque_country/zones/coast_zone/locations` irun y zarautz
-// `https://api.euskadi.eus/euskalmet/geo/regions/basque_country/zones/great_bilbao/locations` bilbao y barakaldo
-// `https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zones/${zoneID}/locations/${locationID}/forecast/at/${fechaActual.getFullYear()}/${meses[0]}/${dias[0]}/for/${fechaManana.getFullYear()}${meses[1]}${dias[1]}`
-
 
 function RecogerLocalizaciones(idsZonas) {
     let localizaciones = new Array()
@@ -35,7 +159,6 @@ function RecogerLocalizaciones(idsZonas) {
 }
 
 function RecogerDatos(codigos) {
-    let ciudades = new Array()
     for (let provincia in codigos) {
         for (let carac in codigos[provincia]) {
             for (let ciudadCOD in codigos[provincia][carac]) {
@@ -60,15 +183,14 @@ function RecogerDatos(codigos) {
                             precipitacion: ((data["precipitacion"] == "") ? 0 : data["precipitacion"])
                         }
                         if (codigos[provincia][carac][ciudadCOD] == 20069) {
-                            console.log(ciudad.nombre)
-                            ciudad.nombre = "Donostia/San Sebastian"
+                            ciudad.nombre = "Donostia"
                         }
                         ciudades.push(ciudad)
+                        console.log(ciudades)
                     })
             }
         }
     }
-    return ciudades
 
 }
 function InsertarDatos(ciudades) {
@@ -76,13 +198,9 @@ function InsertarDatos(ciudades) {
         fetch("http://185.60.40.210/dwc/Aimar/Proyecto/insertarDatosBase.php?ciudad=" + JSON.stringify(ciudad))
     }
 }
-function ActualizarDatos(ciudad) {
-    fetch("http://185.60.40.210/dwc/Aimar/Proyecto/actualizarDatosBase.php?ciudad=" + JSON.stringify(ciudad))
-}
 
 function DatosAleatorios(ciudades) {
     let ciudadesAleatorias = ciudades
-    console.log(ciudadesAleatorias)
     ciudadesAleatorias.forEach(ciudad => {
         ciudad["temperatura"] = parseInt(ciudad["temperatura"]) + (Math.round(Math.random()) * 2 - 1)
         ciudad["humedad"] = parseInt(ciudad["humedad"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))

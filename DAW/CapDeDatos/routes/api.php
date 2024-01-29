@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LocalizacionesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,8 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
+Route::get('recoger', [LocalizacionesController::class, 'RecogerDatos']);
+Route::post('insertar', [LocalizacionesController::class, 'InsertarDatos']);
+Route::post('actualizar',[LocalizacionesController::class, 'ActualizarDatos']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
