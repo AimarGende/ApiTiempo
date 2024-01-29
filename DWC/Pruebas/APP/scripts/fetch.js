@@ -1,30 +1,4 @@
 
-//`https://api.euskadi.eus/euskalmet/geo/regions/basque_country/zones/donostialdea/locations` errenteria y donostia
-
-let codigos = {
-    Bizkaia: {
-        ID: 48,
-        Ciudades: {
-            Bilbao: 48020,
-            Barakaldo: 48013
-        }
-
-    },
-    Gipuzkoa: {
-        ID: 20,
-        Ciudades: {
-            Zarautz: 20079,
-            Irun: 20045,
-            Errenteria: 20067,
-            Donosti: 20069
-        }
-    },
-}
-let ciudades = new Array()
-RecogerDatos(codigos)
-setTimeout(() => {
-    console.log(ciudades)
-}, 4000);
 function predicciones(cuerpoCard, lugar) {
     let div = document.createElement("div")
     div.className += `prediccion prediccion${lugar}`
@@ -142,12 +116,11 @@ function RecogerLocalizaciones(idsZonas) {
     return localizaciones
 }
 
-function RecogerDatos(codigos) {
+function RecogerDatosApi(codigos) {
     for (let provincia in codigos) {
         for (let carac in codigos[provincia]) {
             for (let ciudadCOD in codigos[provincia][carac]) {
-                let fetchURL = `https://www.el-tiempo.net/api/json/v2/provincias/${codigos[provincia].ID}/municipios/${codigos[provincia][carac][ciudadCOD]}`
-                fetch(fetchURL)
+                fetch(`https://www.el-tiempo.net/api/json/v2/provincias/${codigos[provincia].ID}/municipios/${codigos[provincia][carac][ciudadCOD]}`)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error("La solicitud no se pudo completar correctamente.");
@@ -167,20 +140,27 @@ function RecogerDatos(codigos) {
                             precipitacion: ((data["precipitacion"] == "") ? 0 : data["precipitacion"])
                         }
                         if (codigos[provincia][carac][ciudadCOD] == 20069) {
-                            ciudad.nombre = "Donostia/San Sebastian"
+                            ciudad.nombre = "Donostia"
                         }
-                        ciudades.push(ciudad)
-                        console.log(ciudades)
+                        lugares.push(ciudad)
                     })
             }
         }
     }
 
 }
-function InsertarDatos(ciudades) {
-    for (let ciudad of ciudades) {
-        fetch("http://185.60.40.210/dwc/Aimar/Proyecto/insertarDatosBase.php?ciudad=" + JSON.stringify(ciudad))
-    }
+
+function RecogerDatosBase() {
+    fetch(`http://10.10.17.121:8083/api/recoger`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("La solicitud no se pudo completar correctamente.");
+            }
+            return response.json();
+        })
+        .then(data=>{
+            lugares=data.localizaciones
+        })
 }
 
 function DatosAleatorios(ciudades) {

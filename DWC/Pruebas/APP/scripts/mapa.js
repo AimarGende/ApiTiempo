@@ -5,6 +5,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 lugares.forEach(lugar => {
+    console.log(lugar)
     var marker = L.marker([lugar.latitud, lugar.longitud]).addTo(map);
     marker._icon.classList.add(`Icon${lugar.nombre}`);
     marker.on("click", function () {

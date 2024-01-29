@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
@@ -37,26 +37,30 @@
     <script src="scripts/fetch.js"></script>
     <script src="scripts/cards.js"></script>
     <script src="scripts/grafico.js"></script>
-    <script src="scripts/mapa.js"></script>
 
     <script>
         //Main
-        RecogerDatos(codigos)
+        RecogerDatosBase()
         predicciones()
-        lugares.forEach(lugar => {
-            cont++
-            CrearCard(lugar, cont)
-            CrearDialog(lugar)
-        });
-
-        setInterval(() => {
+        setTimeout(() => {
             lugares.forEach(lugar => {
-                ActualizarGraf(lugar.nombre)
-                ActualizarInfoCard(lugar)
-            })
+                cont++
+                CrearCard(lugar, cont)
+                CrearDialog(lugar)
+            });
 
-        }, 3000);
+            setInterval(() => {
+                lugares.forEach(lugar => {
+                    ActualizarGraf(lugar.nombre)
+                    ActualizarInfoCard(lugar)
+                })
+
+            }, 3000);
+        }, 5000);
+
     </script>
+    <script src="scripts/mapa.js"></script>
+
     <script src="scripts/drag&drop.js"></script>
 </body>
 

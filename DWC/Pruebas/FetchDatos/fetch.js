@@ -3,27 +3,7 @@
 const optionsPOST = {
     method: 'POST',
 }
-let codigos = {
-    Bizkaia: {
-        ID: 48,
-        Ciudades: {
-            Bilbao: 48020,
-            Barakaldo: 48013
-        }
 
-    },
-    Gipuzkoa: {
-        ID: 20,
-        Ciudades: {
-            Zarautz: 20079,
-            Irun: 20045,
-            Errenteria: 20067,
-            Donosti: 20069
-        }
-    },
-}
-let ciudades = new Array()
-RecogerDatos(codigos)
 setTimeout(() => {
     for (let i = 0; i < ciudades.length; i++) {
         fetch(`http://10.10.17.121:8083/api/insertar?nombre=${ciudades[i].nombre}&latitud=${ciudades[i].latitud}&longitud=${ciudades[i].longitud}&temperatura=${ciudades[i].temperatura}&humedad=${ciudades[i].humedad}&viento=${ciudades[i].viento}&lluvia=${ciudades[i].lluvia}&precipitacion=${ciudades[i].precipitacion}`, optionsPOST)
@@ -134,29 +114,6 @@ function predicciones(cuerpoCard, lugar) {
     }
 }
 
-function RecogerLocalizaciones(idsZonas) {
-    let localizaciones = new Array()
-    for (let zona of idsZonas) {
-        fetch(`https://api.euskadi.eus/euskalmet/geo/regions/basque_country/zones/${zona}/locations`, options)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("La solicitud no se pudo completar correctamente.");
-                }
-                return response.json();
-            })
-            .then(data => {
-                // console.log(data["forecastText"])
-                for (let location of data) {
-                    if (location["regionZoneLocationId"] == "barakaldo" || location["regionZoneLocationId"] == "bilbao" || location["regionZoneLocationId"] == "irun" || location["regionZoneLocationId"] == "zarautz" || location["regionZoneLocationId"] == "errenteria" || location["regionZoneLocationId"] == "donostia") {
-                        console.log(location)
-                        localizaciones.push(location["regionZoneLocationId"])
-                    }
-                }
-            })
-    }
-
-    return localizaciones
-}
 
 function RecogerDatos(codigos) {
     for (let provincia in codigos) {
@@ -192,11 +149,6 @@ function RecogerDatos(codigos) {
         }
     }
 
-}
-function InsertarDatos(ciudades) {
-    for (let ciudad of ciudades) {
-        fetch("http://185.60.40.210/dwc/Aimar/Proyecto/insertarDatosBase.php?ciudad=" + JSON.stringify(ciudad))
-    }
 }
 
 function DatosAleatorios(ciudades) {
