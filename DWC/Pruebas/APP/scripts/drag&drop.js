@@ -25,7 +25,8 @@ $(".cuerpo").on('drop', function (event) {
         let div = document.createElement("div")
         div.className += "Icono"
         div.style.margin = "5px"
-        if (event.target !== draggedElement && event.target.tagName != "IMG" && event.target.tagName != "P" && event.target.className != "Icono") {
+        console.log(event.target.className.includes("prediccion"))
+        if (event.target !== draggedElement && event.target.tagName != "IMG" && event.target.tagName != "P" && event.target.className != "Icono" && !event.target.className.includes("prediccion")) {
             $(draggedElement).attr('draggable', false)
             lugares.forEach(element => {
                 if (element.nombre == clases[1]) {
@@ -45,7 +46,8 @@ $(".cuerpo").on('drop', function (event) {
                     }
                     div.appendChild(draggedElement)
                     div.appendChild(parrafo)
-                    event.target.appendChild(div);
+                    console.log($(`.prediccion${clases[1]}`)[0])
+                    event.target.insertBefore(div,$(`.prediccion${clases[1]}`)[0])
                 }
             })
         }

@@ -2,8 +2,8 @@
 //`https://api.euskadi.eus/euskalmet/geo/regions/basque_country/zones/donostialdea/locations` errenteria y donostia
 
 function predicciones(cuerpoCard, lugar) {
-    let p = document.createElement("p")
-    p.className += `prediccion prediccion${lugar}`
+    let div = document.createElement("div")
+    div.className += `prediccion prediccion${lugar}`
     switch (lugar) {
         case 'Irun':
             fetch(`https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zones/coast_zone/locations/irun/forecast/at/${fechaActualSeparada[0]}/${fechaActualSeparada[1]}/${fechaActualSeparada[2]}/for/${fechaMananaSeparada[0]}${fechaMananaSeparada[1]}${fechaMananaSeparada[2]}`, options)
@@ -16,8 +16,8 @@ function predicciones(cuerpoCard, lugar) {
                 .then(data => {
                     console.log(data["forecastText"]["SPANISH"])
                     console.log("Irun")
-                    p.innerHTML = data["forecastText"]["SPANISH"]
-                    cuerpoCard.appendChild(p)
+                    div.innerHTML = data["forecastText"]["SPANISH"]
+                    cuerpoCard.appendChild(div)
                 })
             break;
         case 'Donosti':
@@ -31,8 +31,8 @@ function predicciones(cuerpoCard, lugar) {
                 .then(data => {
                     console.log(data["forecastText"]["SPANISH"])
                     console.log("Donosti")
-                    p.innerHTML = data["forecastText"]["SPANISH"]
-                    cuerpoCard.appendChild(p)
+                    div.innerHTML = data["forecastText"]["SPANISH"]
+                    cuerpoCard.appendChild(div)
                 })
             break;
         case 'Bilbao':
@@ -46,8 +46,8 @@ function predicciones(cuerpoCard, lugar) {
                 .then(data => {
                     console.log(data["forecastText"]["SPANISH"])
                     console.log("Bilbao")
-                    p.innerHTML = data["forecastText"]["SPANISH"]
-                    cuerpoCard.appendChild(p)
+                    div.innerHTML = data["forecastText"]["SPANISH"]
+                    cuerpoCard.appendChild(div)
                 })
             break;
         case 'Zarautz':
@@ -59,8 +59,8 @@ function predicciones(cuerpoCard, lugar) {
                     return response.json();
                 })
                 .then(data => {
-                    p.innerHTML = data["forecastText"]["SPANISH"]
-                    cuerpoCard.appendChild(p)
+                    div.innerHTML = data["forecastText"]["SPANISH"]
+                    cuerpoCard.appendChild(div)
                 })
             break;
         case 'Errenteria':
@@ -74,8 +74,8 @@ function predicciones(cuerpoCard, lugar) {
                 .then(data => {
                     console.log(data["forecastText"]["SPANISH"])
                     console.log("Errenteria")
-                    p.innerHTML = data["forecastText"]["SPANISH"]
-                    cuerpoCard.appendChild(p)
+                    div.innerHTML = data["forecastText"]["SPANISH"]
+                    cuerpoCard.appendChild(div)
                 })
             break;
         case 'Barakaldo':
@@ -87,8 +87,8 @@ function predicciones(cuerpoCard, lugar) {
                     return response.json();
                 })
                 .then(data => {
-                    p.innerHTML = data["forecastText"]["SPANISH"]
-                    cuerpoCard.appendChild(p)
+                    div.innerHTML = data["forecastText"]["SPANISH"]
+                    cuerpoCard.appendChild(div)
                 })
             break;
     }

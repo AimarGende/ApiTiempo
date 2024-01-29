@@ -114,3 +114,7 @@ img {
 .grafico {
     z-index: 0;
 }
+
+.prediccion{
+    font-size: 15px;
+}
