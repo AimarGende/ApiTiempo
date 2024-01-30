@@ -147,7 +147,6 @@ function RecogerDatosApi(codigos) {
             }
         }
     }
-
 }
 
 function RecogerDatosBase() {
@@ -158,12 +157,12 @@ function RecogerDatosBase() {
             }
             return response.json();
         })
-        .then(data=>{
-            lugares=data.localizaciones
+        .then(data => {
+            lugares = data.localizaciones
         })
 }
 
-function DatosAleatorios(ciudades) {
+function DatosAleatorios(ciudades) { //cada minuto
     let ciudadesAleatorias = ciudades
     ciudadesAleatorias.forEach(ciudad => {
         ciudad["temperatura"] = parseInt(ciudad["temperatura"]) + (Math.round(Math.random()) * 2 - 1)
@@ -173,4 +172,10 @@ function DatosAleatorios(ciudades) {
         ciudad["precipitacion"] = parseInt(ciudad["precipitacion"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))
     });
     return ciudadesAleatorias
+}
+
+function ActualizarDatos(lugares) {
+    for (let i = 0; i < lugares.length; i++) {
+        fetch(`http://10.10.17.121:8083/api/actualizar?nombre=${ciudades[i].nombre}&temperatura=${ciudades[i].temperatura}&humedad=${ciudades[i].humedad}&viento=${ciudades[i].viento}&lluvia=${ciudades[i].lluvia}&precipitacion=${ciudades[i].precipitacion}`, optionsPOST)
+    }
 }

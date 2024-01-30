@@ -4,21 +4,31 @@ const optionsPOST = {
     method: 'POST',
 }
 
-setTimeout(() => {
-    for (let i = 0; i < ciudades.length; i++) {
-        fetch(`http://10.10.17.121:8083/api/insertar?nombre=${ciudades[i].nombre}&latitud=${ciudades[i].latitud}&longitud=${ciudades[i].longitud}&temperatura=${ciudades[i].temperatura}&humedad=${ciudades[i].humedad}&viento=${ciudades[i].viento}&lluvia=${ciudades[i].lluvia}&precipitacion=${ciudades[i].precipitacion}`, optionsPOST)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("La solicitud no se pudo completar correctamente.");
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data)
-            })
-    }
-}, 1000);
+const codigos = {
+    Bizkaia: {
+        ID: 48,
+        Ciudades: {
+            Bilbao: 48020,
+            Barakaldo: 48013
+        }
 
+    },
+    Gipuzkoa: {
+        ID: 20,
+        Ciudades: {
+            Zarautz: 20079,
+            Irun: 20045,
+            Errenteria: 20067,
+            Donosti: 20069
+        }
+    },
+}
+let ciudades = new Array()
+RecogerDatos(codigos)
+setTimeout(() => {
+
+    InsertarDatos()
+}, 1000);
 
 
 function predicciones(cuerpoCard, lugar) {
@@ -161,4 +171,10 @@ function DatosAleatorios(ciudades) {
         ciudad["precipitacion"] = parseInt(ciudad["precipitacion"]) + ((Math.round(Math.random()) * 2 - 1) < 0 ? 1 : (Math.round(Math.random()) * 2 - 1))
     });
     return ciudadesAleatorias
+}
+
+function InsertarDatos() {
+    for (let i = 0; i < ciudades.length; i++) {
+        fetch(`http://10.10.17.121:8083/api/insertar?nombre=${ciudades[i].nombre}&latitud=${ciudades[i].latitud}&longitud=${ciudades[i].longitud}&temperatura=${ciudades[i].temperatura}&humedad=${ciudades[i].humedad}&viento=${ciudades[i].viento}&lluvia=${ciudades[i].lluvia}&precipitacion=${ciudades[i].precipitacion}`, optionsPOST)
+    }
 }
