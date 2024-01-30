@@ -44,17 +44,29 @@ class LocalizacionesController extends Controller
                 if ($ciudadCOD == 20069) {
                     $data['municipio']['NOMBRE'] = "Donostia";
                 };
-                 $ruta=route('insertar',[
-                    'nombre' => $data['municipio']['NOMBRE'],
-                    'latitud' => $data['municipio']['LATITUD_ETRS89_REGCAN95'],
-                    'longitud' => $data['municipio']['LONGITUD_ETRS89_REGCAN95'],
-                    'temperatura' => $data['temperatura_actual'] ?? 0,
-                    'humedad' => $data['humedad'] ?? 0,
-                    'lluvia' => $data['lluvia'] ?? 0,
-                    'viento' => $data['viento'] ?? 0,
-                    'precipitacion' => $data['precipitacion'] ?? 0,
-                 ]);
-                 return $ruta;
+                $nombre = $data['municipio']['NOMBRE']; 
+                $localizacion = Localizacion::where('nombre', $nombre)->first();
+
+                if($localizacion){
+                    $localizacion->temperatura = $data['temperatura_actual'] ?? 0;
+                    $localizacion->humedad = $data['humedad'] ?? 0;
+                    $localizacion->lluvia = $data['lluvia'] ?? 0;
+                    $localizacion->viento =  $data['viento'] ?? 0;
+                    $localizacion->precipitacion = $data['precipitacion'] ?? 0;
+            
+                    $localizacion->save();
+                }
+                else{
+                    Localizacion::create([
+                        'nombre' => $data['municipio']['NOMBRE'],
+                        'latitud' => $data['municipio']['LATITUD_ETRS89_REGCAN95'],
+                        'longitud' => $data['municipio']['LONGITUD_ETRS89_REGCAN95'],
+                        'temperatura' => $data['temperatura_actual'] ?? 0,
+                        'humedad' => $data['humedad'] ?? 0,
+                        'lluvia' => $data['lluvia'] ?? 0,
+                        'viento' => $data['viento'] ?? 0,
+                        'precipitacion' => $data['precipitacion'] ?? 0,]);
+                }
             }
         }
     }
