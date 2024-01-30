@@ -16,8 +16,10 @@ use App\Http\Controllers\LocalizacionesController;
 */
 
 Route::get('recoger', [LocalizacionesController::class, 'RecogerDatos']);
-Route::post('insertar', [LocalizacionesController::class, 'InsertarDatos']);
+Route::post('insertar', [LocalizacionesController::class, 'InsertarDatos'])->name('insertar');
 Route::post('actualizar',[LocalizacionesController::class, 'ActualizarDatos']);
+Route::get('/recogerapi', [LocalizacionesController::class, 'recogerDatosApi']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
