@@ -20,15 +20,13 @@ CREATE TABLE `localizacionesHistorico` (
   `lluvia` int(11) NOT NULL,
   `precipitacion` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
+DELIMITER //
 CREATE TRIGGER `localizaciones_after_update` AFTER UPDATE ON `localizaciones`
 FOR EACH ROW
 BEGIN
-    INSERT INTO `localizacionesHistorico` (
+    INSERT INTO `localizaciones_historico` (
         `fecha`,
         `nombre`, 
-        `latitud`, 
-        `longitud`, 
         `temperatura`, 
         `humedad`, 
         `viento`, 
@@ -36,13 +34,13 @@ BEGIN
         `precipitacion`
     ) VALUES (
         NOW(),
-        OLD.`nombre`, 
-        OLD.`latitud`, 
-        OLD.`longitud`, 
-        OLD.`temperatura`, 
-        OLD.`humedad`, 
-        OLD.`viento`, 
-        OLD.`lluvia`
-        OLD.`precipitacion`        
+        OLD.nombre, 
+        OLD.temperatura, 
+        OLD.humedad, 
+        OLD.viento, 
+        OLD.lluvia,
+        OLD.precipitacion
     );
 END;
+//
+DELIMITER ;

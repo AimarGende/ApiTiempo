@@ -12,10 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('localizaciones_historico', function (Blueprint $table) {
-            $table->date('fecha');
+            $table->timestamp('fecha');
             $table->string('nombre');
-            $table->float('latitud');
-            $table->float('longitud');
             $table->float('temperatura');
             $table->integer('humedad');
             $table->integer('viento');
