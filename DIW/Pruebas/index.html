@@ -25,7 +25,8 @@
         #Cuerpo {
             margin-top: 14vh;
             height: 70vh;
-            background-color: rgba(70, 202, 246, 0.75);
+            background-color: rgba(255, 255, 255, 0.356);
+            backdrop-filter: blur(70px);
             width: 30%;
             border-radius: 19px;
         }
@@ -53,7 +54,6 @@
 
         ::placeholder {
             color: rgb(53, 52, 52);
-            padding: 1.5%;
         }
 
         .Iniciar {
@@ -61,7 +61,7 @@
             width: 100%;
             height: 5vh;
             border-radius: 12px;
-            border:none;
+            border: none;
             background-color: rgb(12, 183, 242);
             color: white;
             padding: 1.5%;
@@ -73,32 +73,42 @@
             background-color: rgb(11, 165, 216);
         }
 
+        input:placeholder-shown {
+            padding-left: 2.5%;
+        }
+
+        /* input {
+            padding: 10px;
+        } */
+
         #Registrar {
             text-decoration: none;
         }
 
-         @media (max-width:1024px) {
+        @media (max-width:1024px) {
             #form {
                 margin-top: 10vh;
             }
+
             #canvas {
                 margin-top: 6vh;
             }
+
             #Cuerpo {
                 font-size: 60%;
                 height: 70%;
                 width: 50%;
             }
-        } 
+        }
 
         @media (max-width:500px) {
-           
+
             #Cuerpo {
                 font-size: 60%;
                 height: 70%;
                 width: 100%;
             }
-        } 
+        }
     </style>
 </head>
 
@@ -106,14 +116,14 @@
 
     <div id="Cuerpo">
         <canvas id="canvas" height="400"></canvas>
-            <form id="login" onsubmit="login(event)">
-                <div>
-                    <input type="text" id="email" class="Cuadro" placeholder="Email">
-                    <input type="password" id="contrasena" class="Cuadro" placeholder="Contraseña">
-                    <input type="submit" class="Iniciar" value="Inciar Sesion">
-                    <p>No tienes cuenta aun? <a href="Register.html">Registrate aqui</a></p>
-                </div>
-            </form>
+        <form id="login" onsubmit="login(event)">
+            <div>
+                <input type="text" id="email" class="Cuadro" placeholder="Email">
+                <input type="password" id="contrasena" class="Cuadro" placeholder="Contraseña">
+                <input type="submit" class="Iniciar" value="Inciar Sesion">
+                <p>No tienes cuenta aun? <a href="Register.html">Registrate aqui</a></p>
+            </div>
+        </form>
     </div>
 
 

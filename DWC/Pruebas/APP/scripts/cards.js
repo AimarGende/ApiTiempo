@@ -21,11 +21,12 @@ function CrearCard(lugar, cont) {
     card.appendChild(CrearHeaderCard(lugar, cont))
     card.appendChild(CrearCuerpoCard(lugar))
     card.appendChild(CrearFooterCard(lugar))
+    predicciones(card, lugar.nombre)
 
     contenedor.appendChild(card)
 }
 
-function CrearHeaderCard(lugar, cont) {
+function CrearHeaderCard(cont) {
     let header = document.createElement("div")
     header.className += `header`
     header.innerHTML = `<img class="Vien Vien${cont}" alt="Viento" src="Viento.png" height="40px">
@@ -53,7 +54,7 @@ function CrearCuerpoCard(lugar) {
 
         switch (key) {
             case 'temperatura':
-                parrafo.innerHTML = "Temperatura: " + lugar.temperatura
+                parrafo.innerHTML = "Temperatura: " + lugar.temperatura +"ºC"
                 img.src = "Temp.png"
                 img.alt = "Temperatura"
                 div.appendChild(img)
@@ -61,7 +62,7 @@ function CrearCuerpoCard(lugar) {
                 cuerpo.appendChild(div)
                 break;
             case 'humedad':
-                parrafo.innerHTML = "Humedad: " + lugar.humedad
+                parrafo.innerHTML = "Humedad: " + lugar.humedad + "%"
                 img.src = "Humedad.png"
                 img.alt = "Humedad"
                 div.appendChild(img)
@@ -72,7 +73,6 @@ function CrearCuerpoCard(lugar) {
         }
     }
 
-    predicciones(cuerpo, lugar.nombre)
 
     return cuerpo
 }
@@ -104,8 +104,8 @@ function ActualizarInfoCard(lugar) {
                         case "Viento":
                             icono.children[1].innerHTML = `Viento: ${NumRandom()[0]}m/s` // icono.children[1].innerHTML= `Viento: ${lugar.viento}ºC`
                             break;
-                        case "Nubes":
-                            icono.children[1].innerHTML = `Nubes: ${NumRandom()[0]}%` // icono.children[1].innerHTML= `Nubes: ${lugar.nubes}ºC`
+                        case "Precipitacion":
+                            icono.children[1].innerHTML = `Precipitacion: ${NumRandom()[0]}%` // icono.children[1].innerHTML= `Nubes: ${lugar.precipitacion}ºC`
                             break;
                         case "Lluvia":
                             icono.children[1].innerHTML = `Lluvia: ${NumRandom()[0]}mm` // icono.children[1].innerHTML= `Lluvia: ${lugar.lluvia}ºC`

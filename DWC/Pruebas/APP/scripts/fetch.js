@@ -29,71 +29,66 @@ function RecogerDatosBase() {
                     offset: L.point(-15, -8) // Desplazamiento del tooltip respecto al marcador
                 })
 
-                
+
             })
             let clases = []
 
-                $(".Vien,.Nube,.Lluv").on('dragstart', function (event) {
-                    clases = $(this).parent().parent()[0].className.split(" ")
-                    event.originalEvent.dataTransfer.setData("text/plain", event.target.className.split(" ")[1]);
-                    console.log(clases)
-                });
+            $(".Vien,.Nube,.Lluv").on('dragstart', function (event) {
+                clases = $(this).parent().parent()[0].className.split(" ")
+                event.originalEvent.dataTransfer.setData("text/plain", event.target.className.split(" ")[1]);
+            });
 
-                $(".cuerpo").on('dragover', function (event) {
-                    event.preventDefault();
-                });
+            $(".cuerpo").on('dragover', function (event) {
+                event.preventDefault();
+            });
 
-                $(".cuerpo").on('drop', function (event) {
-                    event.preventDefault();
-                    if ($(this).parent()[0].className.split(" ")[1] == clases[1]) {
-                        var data = event.originalEvent.dataTransfer.getData("text/plain");
+            $(".cuerpo").on('drop', function (event) {
+                event.preventDefault();
+                if ($(this).parent()[0].className.split(" ")[1] == clases[1]) {
+                    var data = event.originalEvent.dataTransfer.getData("text/plain");
 
-                        var draggedElement = document.getElementsByClassName(data)[0];
-                        draggedElement.style.display = "inline-block"
-                        draggedElement.style.marginLeft = "2%"
+                    var draggedElement = document.getElementsByClassName(data)[0];
+                    draggedElement.style.display = "inline-block"
+                    draggedElement.style.marginLeft = "2%"
 
-                        let parrafo = document.createElement("p")
-                        parrafo.style.color = "rgba(70, 202, 246)"
-                        parrafo.style.display = "inline-block"
+                    let parrafo = document.createElement("p")
+                    parrafo.style.color = "rgba(70, 202, 246)"
+                    parrafo.style.display = "inline-block"
 
-                        let div = document.createElement("div")
-                        div.className += "Icono"
-                        div.style.margin = "5px"
-                        console.log(event.target.className.includes("prediccion"))
-                        if (event.target !== draggedElement && event.target.tagName != "IMG" && event.target.tagName != "P" && event.target.className != "Icono" && !event.target.className.includes("prediccion")) {
-                            $(draggedElement).attr('draggable', false)
-                            lugares.forEach(element => {
-                                if (element.nombre == clases[1]) {
-                                    switch (data.match(/.{1,3}./)[0]) {
-                                        case 'Vien':
-                                            parrafo.innerHTML = "Viento: " + element.viento;
-                                            break;
-                                        case 'Nube':
-                                            parrafo.innerHTML = "Nubes: " + element.nubes;
-                                            break;
-                                        case 'Lluv':
-                                            parrafo.innerHTML = "Lluvia: " + element.lluvia;
-                                            break;
-                                        case '':
-                                            parrafo.innerHTML;
-                                            break;
-                                    }
-                                    div.appendChild(draggedElement)
-                                    div.appendChild(parrafo)
-                                    console.log($(`.prediccion${clases[1]}`)[0])
-                                    event.target.insertBefore(div, $(`.prediccion${clases[1]}`)[0])
+                    let div = document.createElement("div")
+                    div.className += "Icono"
+                    div.style.margin = "5px"
+                    if (event.target !== draggedElement && event.target.tagName != "IMG" && event.target.tagName != "P" && event.target.className != "Icono" && !event.target.className.includes("prediccion")) {
+                        $(draggedElement).attr('draggable', false)
+                        lugares.forEach(element => {
+                            if (element.nombre == clases[1]) {
+                                switch (data.match(/.{1,3}./)[0]) {
+                                    case 'Vien':
+                                        parrafo.innerHTML = "Viento: " + element.viento + "m/s";
+                                        break;
+                                    case 'Nube':
+                                        parrafo.innerHTML = "Precipitacion: " + element.precipitacion + "%";
+                                        break;
+                                    case 'Lluv':
+                                        parrafo.innerHTML = "Lluvia: " + element.lluvia + " %";
+                                        break;
+                                    case '':
+                                        parrafo.innerHTML;
+                                        break;
                                 }
-                            })
-                        }
+                                div.appendChild(draggedElement)
+                                div.appendChild(parrafo)
+                                event.target.insertBefore(div, $(`.prediccion${clases[1]}`)[0])
+                            }
+                        })
                     }
-                    clases = []
-                });
+                }
+                clases = []
+            });
 
         })
 }
-function predicciones(cuerpoCard, lugar) {
-    let div = document.createElement("div")
-    div.className += `prediccion prediccion${lugar}`
+function predicciones(card, lugar) {
     switch (lugar) {
         case 'Irun':
             fetch(`https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zones/coast_zone/locations/irun/forecast/at/${fechaActualSeparada[0]}/${fechaActualSeparada[1]}/${fechaActualSeparada[2]}/for/${fechaMananaSeparada[0]}${fechaMananaSeparada[1]}${fechaMananaSeparada[2]}`, options)
@@ -104,13 +99,10 @@ function predicciones(cuerpoCard, lugar) {
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data["forecastText"]["SPANISH"])
-                    console.log("Irun")
-                    div.innerHTML = data["forecastText"]["SPANISH"]
-                    cuerpoCard.appendChild(div)
+                    card.title = data["forecastText"]["SPANISH"]
                 })
             break;
-        case 'Donosti':
+        case 'Donostia':
             fetch(`https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zones/donostialdea/locations/donostia/forecast/at/${fechaActualSeparada[0]}/${fechaActualSeparada[1]}/${fechaActualSeparada[2]}/for/${fechaMananaSeparada[0]}${fechaMananaSeparada[1]}${fechaMananaSeparada[2]}`, options)
                 .then(response => {
                     if (!response.ok) {
@@ -119,10 +111,7 @@ function predicciones(cuerpoCard, lugar) {
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data["forecastText"]["SPANISH"])
-                    console.log("Donosti")
-                    div.innerHTML = data["forecastText"]["SPANISH"]
-                    cuerpoCard.appendChild(div)
+                    card.title = data["forecastText"]["SPANISH"]
                 })
             break;
         case 'Bilbao':
@@ -134,10 +123,7 @@ function predicciones(cuerpoCard, lugar) {
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data["forecastText"]["SPANISH"])
-                    console.log("Bilbao")
-                    div.innerHTML = data["forecastText"]["SPANISH"]
-                    cuerpoCard.appendChild(div)
+                    card.title = data["forecastText"]["SPANISH"]
                 })
             break;
         case 'Zarautz':
@@ -149,8 +135,7 @@ function predicciones(cuerpoCard, lugar) {
                     return response.json();
                 })
                 .then(data => {
-                    div.innerHTML = data["forecastText"]["SPANISH"]
-                    cuerpoCard.appendChild(div)
+                    card.title = data["forecastText"]["SPANISH"]
                 })
             break;
         case 'Errenteria':
@@ -162,10 +147,7 @@ function predicciones(cuerpoCard, lugar) {
                     return response.json();
                 })
                 .then(data => {
-                    console.log(data["forecastText"]["SPANISH"])
-                    console.log("Errenteria")
-                    div.innerHTML = data["forecastText"]["SPANISH"]
-                    cuerpoCard.appendChild(div)
+                    card.title = data["forecastText"]["SPANISH"]
                 })
             break;
         case 'Barakaldo':
@@ -177,8 +159,7 @@ function predicciones(cuerpoCard, lugar) {
                     return response.json();
                 })
                 .then(data => {
-                    div.innerHTML = data["forecastText"]["SPANISH"]
-                    cuerpoCard.appendChild(div)
+                    card.title = data["forecastText"]["SPANISH"]
                 })
             break;
     }
