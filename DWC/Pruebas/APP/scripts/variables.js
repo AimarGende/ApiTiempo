@@ -8,25 +8,7 @@ const options = {
 const optionsPOST = {
     method: 'POST',
 }
-const codigos = {
-    Bizkaia: {
-        ID: 48,
-        Ciudades: {
-            Bilbao: 48020,
-            Barakaldo: 48013
-        }
 
-    },
-    Gipuzkoa: {
-        ID: 20,
-        Ciudades: {
-            Zarautz: 20079,
-            Irun: 20045,
-            Errenteria: 20067,
-            Donosti: 20069
-        }
-    },
-}
 
 let fechaActual = new Date()
 let fechaManana = new Date()
@@ -38,3 +20,24 @@ const contenedor = document.getElementById("contenedor")
 let graficos = new Array()
 let cont = 0
 let lugares = new Array()
+
+
+// const codigos = {
+//     Bizkaia: {
+//         ID: 48,
+//         Ciudades: {
+//             Bilbao: 48020,
+//             Barakaldo: 48013
+//         }
+
+//     },
+//     Gipuzkoa: {
+//         ID: 20,
+//         Ciudades: {
+//             Zarautz: 20079,
+//             Irun: 20045,
+//             Errenteria: 20067,
+//             Donosti: 20069
+//         }
+//     },
+// }

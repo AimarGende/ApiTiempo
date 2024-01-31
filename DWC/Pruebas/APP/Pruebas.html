@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"> </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
     <style>
         .ui-dialog-titlebar {
             background-color: rgb(12, 183, 242);
@@ -34,21 +35,14 @@
         <div id="contenedor"></div>
     </section>
     <script src="scripts/variables.js"></script>
-    <script src="scripts/fetch.js"></script>
+
     <script src="scripts/cards.js"></script>
     <script src="scripts/grafico.js"></script>
-
+    <script src="scripts/fetch.js"></script>
     <script>
         //Main
         RecogerDatosBase()
-        predicciones()
         setTimeout(() => {
-            lugares.forEach(lugar => {
-                cont++
-                CrearCard(lugar, cont)
-                CrearDialog(lugar)
-            });
-
             setInterval(() => {
                 lugares.forEach(lugar => {
                     ActualizarGraf(lugar.nombre)
@@ -61,7 +55,6 @@
     </script>
     <script src="scripts/mapa.js"></script>
 
-    <script src="scripts/drag&drop.js"></script>
 </body>
 
 </html>
