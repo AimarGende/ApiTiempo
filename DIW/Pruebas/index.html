@@ -25,8 +25,8 @@
         #Cuerpo {
             margin-top: 14vh;
             height: 70vh;
-            background-color: rgba(255, 255, 255, 0.356);
-            backdrop-filter: blur(70px);
+            background-color: rgba(255, 255, 255, 0.062);
+            backdrop-filter: blur(7px);
             width: 30%;
             border-radius: 19px;
         }
@@ -38,7 +38,7 @@
 
         form div {
             width: 85%;
-            color: white;
+            color: black;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
@@ -147,6 +147,7 @@
         canvas.arc(150, 170, 30, 0, Math.PI * 2, true);
         canvas.closePath();
         canvas.strokeStyle = "white"
+        canvas.lineWidth = 3
         canvas.stroke();
 
         //Cuerpo
