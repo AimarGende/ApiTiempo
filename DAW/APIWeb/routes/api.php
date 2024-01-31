@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\LocalizacionesController;
 use App\Http\Controllers\RegisterController;
 
 /*
@@ -19,6 +20,7 @@ use App\Http\Controllers\RegisterController;
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
 
+Route::get('recoger', [LocalizacionesController::class, 'RecogerDatos']);
 
 Route::middleware('auth:api')->group(function () {  
     Route::get('logout', [RegisterController::class, 'logout']);

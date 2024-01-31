@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Localizacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -9,7 +10,7 @@ class LocalizacionesController extends Controller
 {
 
     
-    public function recogerDatosApi()
+    public function RecogerDatosApi()
     {
         $codigos = [
             'Bizkaia' => [
@@ -48,11 +49,11 @@ class LocalizacionesController extends Controller
                 $localizacion = Localizacion::where('nombre', $nombre)->first();
 
                 if($localizacion){
-                    $localizacion->temperatura = $data['temperatura_actual'] ?? 0;
-                    $localizacion->humedad = $data['humedad'] ?? 0;
-                    $localizacion->lluvia = $data['lluvia'] ?? 0;
-                    $localizacion->viento =  $data['viento'] ?? 0;
-                    $localizacion->precipitacion = $data['precipitacion'] ?? 0;
+                    $localizacion->temperatura = $data['temperatura_actual'] == "" ? 0 : $data['temperatura_actual'];
+                    $localizacion->humedad = $data['humedad'] == "" ? 0 : $data['humedad'];
+                    $localizacion->lluvia = $data['lluvia'] == "" ? 0 : $data['lluvia'];
+                    $localizacion->viento =  $data['viento'] == "" ? 0 : $data['viento'];
+                    $localizacion->precipitacion = $data['precipitacion'] == "" ? 0 : $data['precipitacion'];
             
                     $localizacion->save();
                 }
@@ -61,11 +62,11 @@ class LocalizacionesController extends Controller
                         'nombre' => $data['municipio']['NOMBRE'],
                         'latitud' => $data['municipio']['LATITUD_ETRS89_REGCAN95'],
                         'longitud' => $data['municipio']['LONGITUD_ETRS89_REGCAN95'],
-                        'temperatura' => $data['temperatura_actual'] ?? 0,
-                        'humedad' => $data['humedad'] ?? 0,
-                        'lluvia' => $data['lluvia'] ?? 0,
-                        'viento' => $data['viento'] ?? 0,
-                        'precipitacion' => $data['precipitacion'] ?? 0,]);
+                        'temperatura' => $data['temperatura_actual'] == "" ? 0 : $data['temperatura_actual'],
+                        'humedad' => $data['humedad'] == "" ? 0 : $data['humedad'],
+                        'lluvia' => $data['lluvia'] == "" ? 0 : $data['lluvia'],
+                        'viento' => $data['viento'] == "" ? 0 : $data['viento'],
+                        'precipitacion' => $data['precipitacion'] == "" ? 0 : $data['precipitacion'],]);
                 }
             }
         }
@@ -75,34 +76,17 @@ class LocalizacionesController extends Controller
         return response()->json(['localizaciones'=>$localizaciones]);
     }
 
-    public function InsertarDatos(Request $request){
-        $request->validate([
-            'nombre' => 'required',
-            'latitud' => 'required',
-            'longitud' => 'required',
-            'temperatura' => 'required',
-            'humedad' => 'required',
-            'viento' => 'required',
-            'lluvia' => 'required',
-            'precipitacion' => 'required'
-        ]);
-
-        Localizacion::create($request->all());
-    }
-
-    public function ActualizarDatos(Request $request){
-        $nombre = $request->input('nombre');
-        $localizacion = Localizacion::where('nombre', $nombre)->first();
-
-        if (!$localizacion) {
-            return response()->json(['mensaje' => 'Lugar no encontrado'], 404);
+    public function DatosAleatorios(){
+        $localizaciones = Localizacion::all();
+        foreach( $localizaciones as $localizacion){
+            $localizacion->temperatura =$localizacion->temperatura - (($localizacion->temperatura<=0)?-1:rand(-1,1)); 
+            $localizacion->humedad = $localizacion->humedad - (($localizacion->humedad<=0)?-1:rand(-1,1));
+            $localizacion->lluvia = $localizacion->lluvia - (($localizacion->lluvia<=0)?-1:rand(-1,1));
+            $localizacion->viento = $localizacion->viento - (($localizacion->viento<=0)?-1:rand(-1,1));
+            $localizacion->precipitacion = $localizacion->precipitacion - (($localizacion->precipitacion<=0)?-1:rand(-1,1));
+    
+            $localizacion->save();
         }
-        $localizacion->temperatura = $request->input('temperatura');
-        $localizacion->humedad = $request->input('humedad');
-        $localizacion->lluvia = $request->input('lluvia');
-        $localizacion->viento = $request->input('viento');
-        $localizacion->precipitacion = $request->input('precipitacion');
 
-        $localizacion->save();
     }
 }

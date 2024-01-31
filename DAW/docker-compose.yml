@@ -12,6 +12,7 @@ services:
             - DB_DATABASE=Aimar
           volumes:
             - ./CapDeDatos/:/app
+          command: ["php", "artisan", "schedule:work"]
   # Plan B
   # capdatos:
   #         build: 

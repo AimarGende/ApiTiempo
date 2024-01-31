@@ -12,7 +12,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('app:datos-a-p-i')->everyFifteenMinutes();
+        $schedule->command('app:datos-aleatorios')->everyFifteenSeconds();
     }
 
     /**
