@@ -53,7 +53,7 @@ class LocalizacionesController extends Controller
                     $localizacion->humedad = $data['humedad'] == "" ? 0 : $data['humedad'];
                     $localizacion->lluvia = $data['lluvia'] == "" ? 0 : $data['lluvia'];
                     $localizacion->viento =  $data['viento'] == "" ? 0 : $data['viento'];
-                    $localizacion->precipitacion = $data['precipitacion'] == "" ? 0 : $data['precipitacion'];
+                    $localizacion->precipitacion = $data['precipitacion'] == "Ip" ? 0 : $data['precipitacion'];
             
                     $localizacion->save();
                 }
@@ -66,7 +66,7 @@ class LocalizacionesController extends Controller
                         'humedad' => $data['humedad'] == "" ? 0 : $data['humedad'],
                         'lluvia' => $data['lluvia'] == "" ? 0 : $data['lluvia'],
                         'viento' => $data['viento'] == "" ? 0 : $data['viento'],
-                        'precipitacion' => $data['precipitacion'] == "" ? 0 : $data['precipitacion'],]);
+                        'precipitacion' => $data['precipitacion'] == "Ip" ? 0 : $data['precipitacion'],]);
                 }
             }
         }
