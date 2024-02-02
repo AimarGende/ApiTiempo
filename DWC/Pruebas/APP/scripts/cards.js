@@ -34,9 +34,9 @@ function CrearCard(lugar, cont) {
 function CrearHeaderCard(cont) {
     let header = document.createElement("div")
     header.className += `header`
-    header.innerHTML = `<img class="Vien Vien${cont}" alt="Viento" src="Viento.png" height="40px">
-                        <img class="Nube Nube${cont}" alt="Nubes" src="Nubes.png" height="40px">
-                        <img class="Lluv Lluv${cont}" alt="Lluvia" src="Lluvia.png" height="40px">`
+    header.innerHTML = `<img class="Vien Vien${cont}" alt="Viento" src="imagenes/Viento.png" height="40px">
+                        <img class="Nube Nube${cont}" alt="Nubes" src="imagenes/Nubes.png" height="40px">
+                        <img class="Lluv Lluv${cont}" alt="Lluvia" src="imagenes/Lluvia.png" height="40px">`
     return header
 }
 
@@ -48,7 +48,7 @@ function CrearCuerpoCard(lugar) {
         div.className += "Icono"
 
         let parrafo = document.createElement("p")
-        parrafo.style.color = "rgba(70, 202, 246)"
+        parrafo.style.color = "rgb(38, 106, 170)"
         parrafo.style.display = "inline-block"
 
         let img = new Image()
@@ -60,7 +60,7 @@ function CrearCuerpoCard(lugar) {
         switch (key) {
             case 'temperatura':
                 parrafo.innerHTML = "Temperatura: " + lugar.temperatura + "ºC"
-                img.src = "Temp.png"
+                img.src = "imagenes/Temp.png"
                 img.alt = "Temperatura"
                 div.appendChild(img)
                 div.appendChild(parrafo)
@@ -68,7 +68,7 @@ function CrearCuerpoCard(lugar) {
                 break;
             case 'humedad':
                 parrafo.innerHTML = "Humedad: " + lugar.humedad + "%"
-                img.src = "Humedad.png"
+                img.src = "imagenes/Humedad.png"
                 img.alt = "Humedad"
                 div.appendChild(img)
                 div.appendChild(parrafo)

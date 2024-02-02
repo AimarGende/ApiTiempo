@@ -54,7 +54,7 @@ function RecogerDatosBase() {
                     draggedElement.style.marginLeft = "2%"
 
                     let parrafo = document.createElement("p")
-                    parrafo.style.color = "rgba(70, 202, 246)"
+                    parrafo.style.color = "rgb(38, 106, 170)"
                     parrafo.style.display = "inline-block"
 
                     let div = document.createElement("div")
