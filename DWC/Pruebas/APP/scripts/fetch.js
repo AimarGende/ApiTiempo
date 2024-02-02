@@ -59,7 +59,6 @@ function RecogerDatosBase() {
 
                     let div = document.createElement("div")
                     div.className += "Icono"
-                    div.style.margin = "5px"
                     if (event.target !== draggedElement && event.target.tagName != "IMG" && event.target.tagName != "P" && event.target.className != "Icono" && !event.target.className.includes("prediccion")) {
                         $(draggedElement).attr('draggable', false)
                         lugares.forEach(element => {
