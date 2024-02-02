@@ -20,7 +20,7 @@
     </script>
     <style>
         .ui-dialog-titlebar {
-            background-color: rgb(12, 183, 242);
+            background-color: rgb(38, 106, 170);
             color: white;
         }
     </style>
@@ -36,16 +36,40 @@
         <center>
             <div id="mapid"> </div>
         </center>
-        <div id="contenedor"></div>
+        <div id="contenedor">
+
+        </div>
     </section>
     <script src="scripts/variables.js"></script>
-
     <script src="scripts/cards.js"></script>
     <script src="scripts/grafico.js"></script>
     <script src="scripts/fetch.js"></script>
+    <script src="scripts/mapa.js"></script>
     <script>
         //Main
-        RecogerDatosBase()
+        // RecogerDatosBase()
+        lugares.forEach(lugar => {
+            cont++
+            CrearCard(lugar, cont)
+            CrearDialog(lugar)
+            var marker = L.marker([lugar.latitud, lugar.longitud]).addTo(map);
+            marker._icon.classList.add(`Icon${lugar.nombre}`);
+            marker.on("click", function () {
+                let color = MostrarCard(lugar.nombre)
+                if (color == 1) {
+                    $(document.getElementsByClassName(`Icon${lugar.nombre}`)[0]).css("filter", "hue-rotate(120deg)")
+                }
+                else {
+                    $(document.getElementsByClassName(`Icon${lugar.nombre}`)[0]).css("filter", "hue-rotate(0deg)")
+                }
+            })
+            marker.bindTooltip(lugar.nombre, {
+                permanent: false,    // El tooltip no será permanente
+                direction: 'top',    // Se mostrará encima del marcador
+                offset: L.point(-15, -8) // Desplazamiento del tooltip respecto al marcador
+            })
+        })
+        LocalStorage()
         setTimeout(() => {
             setInterval(() => {
                 lugares.forEach(lugar => {
@@ -57,8 +81,6 @@
         }, 5000);
 
     </script>
-    <script src="scripts/mapa.js"></script>
-
 </body>
 
 </html>

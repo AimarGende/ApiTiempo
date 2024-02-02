@@ -3,12 +3,15 @@ function MostrarCard(lugar) {
     let color = 0
     if (card.style.display == "none") {
         card.style.display = "block"
+        lugaresGuardados.push(card.className.split(' ')[1])
+        localStorage.setItem('lugares', lugaresGuardados)
         color++
     }
     else {
         card.style.display = "none"
-        $(document.getElementsByClassName(`Icon${lugar.nombre}`)[0]).css("filter", "hue-rotate(-120deg)")
         color--
+        lugaresGuardados=lugaresGuardados.filter(lugar=>lugar!=card.className.split(' ')[1])
+        localStorage.setItem('lugares', lugaresGuardados)
     }
     return color
 }
@@ -118,4 +121,15 @@ function ActualizarInfoCard(lugar) {
             }
         }
     }
+}
+
+function LocalStorage() {
+    lugaresGuardados.forEach(lugar => {
+        let card = document.getElementsByClassName(lugar)[0]
+        if (card != undefined) {
+            $(document.getElementsByClassName(`Icon${lugar}`)[0]).css("filter", "hue-rotate(120deg)")
+            card.style.display = "block"
+        }
+    });
+    
 }
