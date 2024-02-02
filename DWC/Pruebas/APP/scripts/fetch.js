@@ -72,7 +72,7 @@ function RecogerDatosBase() {
                                         parrafo.innerHTML = "Precipitacion: " + element.precipitacion + "%";
                                         break;
                                     case 'Lluv':
-                                        parrafo.innerHTML = "Lluvia: " + element.lluvia + " %";
+                                        parrafo.innerHTML = "Lluvia: " + element.lluvia + "mm";
                                         break;
                                     case '':
                                         parrafo.innerHTML;
