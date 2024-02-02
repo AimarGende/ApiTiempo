@@ -15,7 +15,7 @@ return new class extends Migration
             $table->string('nombre')->primary();
             $table->float('latitud');
             $table->float('longitud');
-            $table->float('temperatura');
+            $table->integer('temperatura');
             $table->integer('humedad');
             $table->integer('viento');
             $table->integer('lluvia');

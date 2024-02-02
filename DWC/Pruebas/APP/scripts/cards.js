@@ -3,14 +3,17 @@ function MostrarCard(lugar) {
     let color = 0
     if (card.style.display == "none") {
         card.style.display = "block"
-        lugaresGuardados.push(card.className.split(' ')[1])
+        if (!lugaresGuardados.includes(card.className.split(' ')[1])) {
+            lugaresGuardados.push(card.className.split(' ')[1])
+        }
         localStorage.setItem('lugares', lugaresGuardados)
         color++
     }
     else {
         card.style.display = "none"
         color--
-        lugaresGuardados=lugaresGuardados.filter(lugar=>lugar!=card.className.split(' ')[1])
+        lugaresGuardados = lugaresGuardados.filter(lugar => lugar != card.className.split(' ')[1])
+        console.log(lugaresGuardados)
         localStorage.setItem('lugares', lugaresGuardados)
     }
     return color
@@ -20,8 +23,7 @@ function CrearCard(lugar, cont) {
     let card = document.createElement("div")
     card.className += `card ${lugar.nombre}`
     card.style.display = "none"
-
-    card.appendChild(CrearHeaderCard(lugar, cont))
+    card.appendChild(CrearHeaderCard(cont))
     card.appendChild(CrearCuerpoCard(lugar))
     card.appendChild(CrearFooterCard(lugar))
     predicciones(card, lugar.nombre)
@@ -57,7 +59,7 @@ function CrearCuerpoCard(lugar) {
 
         switch (key) {
             case 'temperatura':
-                parrafo.innerHTML = "Temperatura: " + lugar.temperatura +"ºC"
+                parrafo.innerHTML = "Temperatura: " + lugar.temperatura + "ºC"
                 img.src = "Temp.png"
                 img.alt = "Temperatura"
                 div.appendChild(img)
@@ -99,19 +101,19 @@ function ActualizarInfoCard(lugar) {
                 if (icono.className == "Icono") {
                     switch (icono.children[1].innerHTML.split(": ")[0]) {
                         case "Temperatura":
-                            icono.children[1].innerHTML = `Temperatura: ${NumRandom()[0]}ºC` // icono.children[1].innerHTML= `Temperatura: ${lugar.temperatura}ºC`
+                            icono.children[1].innerHTML = `Temperatura: ${lugar.temperatura}ºC` // icono.children[1].innerHTML= `Temperatura: ${lugar.temperatura}ºC`
                             break;
                         case "Humedad":
-                            icono.children[1].innerHTML = `Humedad: ${NumRandom()[0]}%` // icono.children[1].innerHTML= `Humedad: ${lugar.humedad}ºC`
+                            icono.children[1].innerHTML = `Humedad: ${lugar.humedad}%` // icono.children[1].innerHTML= `Humedad: ${lugar.humedad}ºC`
                             break;
                         case "Viento":
-                            icono.children[1].innerHTML = `Viento: ${NumRandom()[0]}m/s` // icono.children[1].innerHTML= `Viento: ${lugar.viento}ºC`
+                            icono.children[1].innerHTML = `Viento: ${lugar.viento}m/s` // icono.children[1].innerHTML= `Viento: ${lugar.viento}ºC`
                             break;
                         case "Precipitacion":
-                            icono.children[1].innerHTML = `Precipitacion: ${NumRandom()[0]}%` // icono.children[1].innerHTML= `Nubes: ${lugar.precipitacion}ºC`
+                            icono.children[1].innerHTML = `Precipitacion: ${lugar.precipitacion}%` // icono.children[1].innerHTML= `Nubes: ${lugar.precipitacion}ºC`
                             break;
                         case "Lluvia":
-                            icono.children[1].innerHTML = `Lluvia: ${NumRandom()[0]}mm` // icono.children[1].innerHTML= `Lluvia: ${lugar.lluvia}ºC`
+                            icono.children[1].innerHTML = `Lluvia: ${lugar.lluvia}mm` // icono.children[1].innerHTML= `Lluvia: ${lugar.lluvia}ºC`
                             break;
                         default:
                             break;
@@ -125,11 +127,14 @@ function ActualizarInfoCard(lugar) {
 
 function LocalStorage() {
     lugaresGuardados.forEach(lugar => {
-        let card = document.getElementsByClassName(lugar)[0]
-        if (card != undefined) {
-            $(document.getElementsByClassName(`Icon${lugar}`)[0]).css("filter", "hue-rotate(120deg)")
-            card.style.display = "block"
+        if (lugar != '') {
+            let card = document.getElementsByClassName(lugar)[0]
+            if (card != undefined) {
+                $(document.getElementsByClassName(`Icon${lugar}`)[0]).css("filter", "hue-rotate(120deg)")
+                card.style.display = "block"
+            }
         }
+
     });
-    
+
 }

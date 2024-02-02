@@ -31,10 +31,12 @@ function RecogerDatosBase() {
 
 
             })
+            
             let clases = []
 
             $(".Vien,.Nube,.Lluv").on('dragstart', function (event) {
                 clases = $(this).parent().parent()[0].className.split(" ")
+                console.log(clases[1])
                 event.originalEvent.dataTransfer.setData("text/plain", event.target.className.split(" ")[1]);
             });
 
@@ -85,6 +87,7 @@ function RecogerDatosBase() {
                 }
                 clases = []
             });
+            LocalStorage()
 
         })
 }
@@ -165,6 +168,18 @@ function predicciones(card, lugar) {
     }
 }
 
+function ActualizarDatos() {
+    fetch(`http://10.10.17.121:8086/api/recoger`)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("La solicitud no se pudo completar correctamente.");
+        }
+        return response.json();
+    })
+    .then(data=>{
+        lugares=data.localizaciones
+    })
+}
 // function RecogerLocalizaciones(idsZonas) {
 //     let localizaciones = new Array()
 //     for (let zona of idsZonas) {
