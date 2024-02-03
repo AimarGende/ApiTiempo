@@ -2,9 +2,12 @@ body {
     box-sizing: border-box;
     margin: 0;
     background-color: rgba(64, 119, 172, 0.24);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
 }
 
 header {
+    color: white;
     font-size: 130%;
     position: fixed;
     width: 100%;
@@ -17,30 +20,31 @@ header {
     align-items: center;
 }
 
-header a{
+header a {
     color: white;
     text-decoration: none;
+    margin-right: 20px;
 }
 
-header img{
-    vertical-align: middle;
+header img {
+    margin-left: 20px;
+    margin-top: 0%;
+}
+
+header p {
     display: inline-block;
+
 }
 
-header p{
-    display: inline-block;
-    width: 20%;
-}
-
-section{
+section {
     margin-top: 8vh;
 
 }
 
 .card {
-    height: 455px;
+    height: 330px;
     width: 250px;
-    margin: 2vh;
+    margin: 6vh;
 }
 
 img {
@@ -48,20 +52,23 @@ img {
     margin-top: 2%;
 }
 
+
+
 .header {
     background-color: rgb(38, 106, 170);
-    height: 10%;
+    height: 14%;
     width: 100%;
     border: 1px solid;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+
 }
 
 
 
 .footer {
     background-color: rgb(38, 106, 170);
-    height: 10%;
+    height: 14%;
     width: 100%;
     border: 1px solid;
     border-bottom-left-radius: 10px;
@@ -75,6 +82,7 @@ img {
 .footer h1 {
     display: inline-block;
     color: black;
+    font-weight: 500;
 }
 
 .footer button {
@@ -86,7 +94,7 @@ img {
 
 .cuerpo {
     background-color: rgba(255, 255, 255, 0.75);
-    height: 70%;
+    height: 100%;
     width: 100%;
     border: 1px solid black;
     border-top: none;
@@ -117,10 +125,10 @@ img {
     z-index: 0;
 }
 
-.prediccion{
+.prediccion {
     font-size: 15px;
 }
 
-.Icono{
+.Icono {
     padding: 5px;
 }

@@ -15,7 +15,9 @@
 
     <script>
         $(function () {
-            $(document).tooltip();
+            $(document).tooltip({
+                position: { my:"bottom",at:"top" }
+            });
         });
     </script>
     <style>
@@ -30,6 +32,7 @@
             border-radius: 10px;
             box-shadow: none;
             width: 250px;
+            z-index: 2;
         }
     </style>
 </head>
@@ -37,8 +40,8 @@
 
 <body>
 
-    <header>
-        <p><img src="imagenes/Logo.png" alt="NombreAPP" height="50">Nombre</p><a href="">LogOut</a>
+    <header>    
+        <img src="imagenes/Logo.png" id="logo" alt="NombreAPP" height="50"><p>Nombre</p><a href="">LogOut</a>
     </header>
     <section>
         <center>
@@ -111,7 +114,7 @@
         //         draggedElement.style.marginLeft = "2%"
 
         //         let parrafo = document.createElement("p")
-        //         parrafo.style.color = "rgba(70, 202, 246)"
+        //         parrafo.style.color = "rgb(38, 106, 170)"
         //         parrafo.style.display = "inline-block"
 
         //         let div = document.createElement("div")
