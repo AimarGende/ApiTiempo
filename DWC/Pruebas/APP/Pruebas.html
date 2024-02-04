@@ -23,7 +23,7 @@
     <style>
         .ui-dialog-titlebar {
             background-color: rgb(38, 106, 170);
-            color: white;
+            color: black;
         }
 
         .ui-tooltip {
@@ -31,7 +31,6 @@
             background-color: rgba(64, 119, 172);
             border-radius: 10px;
             box-shadow: none;
-            width: 250px;
             z-index: 2;
         }
     </style>
@@ -51,6 +50,7 @@
 
         </div>
     </section>
+ 
     <script src="scripts/variables.js"></script>
     <script src="scripts/cards.js"></script>
     <script src="scripts/grafico.js"></script>
@@ -58,29 +58,29 @@
     <script src="scripts/mapa.js"></script>
     <script>
         //Main
-        RecogerDatosBase()
+        // RecogerDatosBase()
 
-        // lugares.forEach(lugar => {
-        //     cont++
-        //     CrearCard(lugar, cont)
-        //     CrearDialog(lugar)
-        //     var marker = L.marker([lugar.latitud, lugar.longitud]).addTo(map);
-        //     marker._icon.classList.add(`Icon${lugar.nombre}`);
-        //     marker.on("click", function () {
-        //         let color = MostrarCard(lugar.nombre)
-        //         if (color == 1) {
-        //             $(document.getElementsByClassName(`Icon${lugar.nombre}`)[0]).css("filter", "hue-rotate(120deg)")
-        //         }
-        //         else {
-        //             $(document.getElementsByClassName(`Icon${lugar.nombre}`)[0]).css("filter", "hue-rotate(0deg)")
-        //         }
-        //     })
-        //     marker.bindTooltip(lugar.nombre, {
-        //         permanent: false,    // El tooltip no será permanente
-        //         direction: 'top',    // Se mostrará encima del marcador
-        //         offset: L.point(-15, -8) // Desplazamiento del tooltip respecto al marcador
-        //     })
-        // })
+        lugares.forEach(lugar => {
+            cont++
+            CrearCard(lugar, cont)
+            CrearDialog(lugar)
+            var marker = L.marker([lugar.latitud, lugar.longitud]).addTo(map);
+            marker._icon.classList.add(`Icon${lugar.nombre}`);
+            marker.on("click", function () {
+                let color = MostrarCard(lugar.nombre)
+                if (color == 1) {
+                    $(document.getElementsByClassName(`Icon${lugar.nombre}`)[0]).css("filter", "hue-rotate(120deg)")
+                }
+                else {
+                    $(document.getElementsByClassName(`Icon${lugar.nombre}`)[0]).css("filter", "hue-rotate(0deg)")
+                }
+            })
+            marker.bindTooltip(lugar.nombre, {
+                permanent: false,    // El tooltip no será permanente
+                direction: 'top',    // Se mostrará encima del marcador
+                offset: L.point(-15, -8) // Desplazamiento del tooltip respecto al marcador
+            })
+        })
 
 
         setTimeout(() => {
@@ -93,60 +93,60 @@
 
             }, 3000);
         }, 5000);
-        // let clases = []
+        let clases = []
 
-        // $(".Vien,.Nube,.Lluv").on('dragstart', function (event) {
-        //     clases = $(this).parent().parent()[0].className.split(" ")
-        //     event.originalEvent.dataTransfer.setData("text/plain", event.target.className.split(" ")[1]);
-        // });
+        $(".Vien,.Nube,.Lluv").on('dragstart', function (event) {
+            clases = $(this).parent().parent()[0].className.split(" ")
+            event.originalEvent.dataTransfer.setData("text/plain", event.target.className.split(" ")[1]);
+        });
 
-        // $(".cuerpo").on('dragover', function (event) {
-        //     event.preventDefault();
-        // });
+        $(".cuerpo").on('dragover', function (event) {
+            event.preventDefault();
+        });
 
-        // $(".cuerpo").on('drop', function (event) {
-        //     event.preventDefault();
-        //     if ($(this).parent()[0].className.split(" ")[1] == clases[1]) {
-        //         var data = event.originalEvent.dataTransfer.getData("text/plain");
+        $(".cuerpo").on('drop', function (event) {
+            event.preventDefault();
+            if ($(this).parent()[0].className.split(" ")[1] == clases[1]) {
+                var data = event.originalEvent.dataTransfer.getData("text/plain");
 
-        //         var draggedElement = document.getElementsByClassName(data)[0];
-        //         draggedElement.style.display = "inline-block"
-        //         draggedElement.style.marginLeft = "2%"
+                var draggedElement = document.getElementsByClassName(data)[0];
+                draggedElement.style.display = "inline-block"
+                draggedElement.style.marginLeft = "2%"
 
-        //         let parrafo = document.createElement("p")
-        //         parrafo.style.color = "rgb(38, 106, 170)"
-        //         parrafo.style.display = "inline-block"
+                let parrafo = document.createElement("p")
+                parrafo.style.color = "rgb(38, 106, 170)"
+                parrafo.style.display = "inline-block"
 
-        //         let div = document.createElement("div")
-        //         div.className += "Icono"
-        //         div.style.margin = "5px"
-        //         if (event.target !== draggedElement && event.target.tagName != "IMG" && event.target.tagName != "P" && event.target.className != "Icono" && !event.target.className.includes("prediccion")) {
-        //             $(draggedElement).attr('draggable', false)
-        //             lugares.forEach(element => {
-        //                 if (element.nombre == clases[1]) {
-        //                     switch (data.match(/.{1,3}./)[0]) {
-        //                         case 'Vien':
-        //                             parrafo.innerHTML = "Viento: " + element.viento + "m/s";
-        //                             break;
-        //                         case 'Nube':
-        //                             parrafo.innerHTML = "Precipitacion: " + element.precipitacion + "%";
-        //                             break;
-        //                         case 'Lluv':
-        //                             parrafo.innerHTML = "Lluvia: " + element.lluvia + " %";
-        //                             break;
-        //                         case '':
-        //                             parrafo.innerHTML;
-        //                             break;
-        //                     }
-        //                     div.appendChild(draggedElement)
-        //                     div.appendChild(parrafo)
-        //                     event.target.insertBefore(div, $(`.prediccion${clases[1]}`)[0])
-        //                 }
-        //             })
-        //         }
-        //     }
-        //     clases = []
-        // });
+                let div = document.createElement("div")
+                div.className += "Icono"
+                div.style.margin = "5px"
+                if (event.target !== draggedElement && event.target.tagName != "IMG" && event.target.tagName != "P" && event.target.className != "Icono" && !event.target.className.includes("prediccion")) {
+                    $(draggedElement).attr('draggable', false)
+                    lugares.forEach(element => {
+                        if (element.nombre == clases[1]) {
+                            switch (data.match(/.{1,3}./)[0]) {
+                                case 'Vien':
+                                    parrafo.innerHTML = "Viento: " + element.viento + "m/s";
+                                    break;
+                                case 'Nube':
+                                    parrafo.innerHTML = "Precipitacion: " + element.precipitacion + "%";
+                                    break;
+                                case 'Lluv':
+                                    parrafo.innerHTML = "Lluvia: " + element.lluvia + "mm";
+                                    break;
+                                case '':
+                                    parrafo.innerHTML;
+                                    break;
+                            }
+                            div.appendChild(draggedElement)
+                            div.appendChild(parrafo)
+                            event.target.insertBefore(div, $(`.prediccion${clases[1]}`)[0])
+                        }
+                    })
+                }
+            }
+            clases = []
+        });
     </script>
 </body>
 

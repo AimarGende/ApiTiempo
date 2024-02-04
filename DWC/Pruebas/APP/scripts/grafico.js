@@ -3,6 +3,7 @@ function CrearDialog(lugar) {
     let dialog = document.createElement("div")
     dialog.className += `grafico graf${lugar.nombre}`
     dialog.title = `${lugar.nombre}`
+    dialog.innerHTML=`<input type="date">   <input type="date"> <button onclick="ActualizarGrafico('${lugar.nombre}')">RecogerDatos</button>`
     document.body.appendChild(dialog)
     $(".grafico").dialog({
         height: 400,

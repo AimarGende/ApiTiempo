@@ -5,29 +5,61 @@
     <meta charset="ISO-8859-1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="fetch.js"></script>
 </head>
 
 <body>
+    <input type="date">
+    <input type="date" max="2024-07-15">
+    <button onclick="MirarFechas()">Insertar fechas</button>
     <script>
+        let inputs = document.querySelectorAll('input')
+        let fechaActual = new Date()
+        fechaActual.setFullYear(fechaActual.getFullYear() - 1)
+        let minFecha = fechaActual.toISOString().split('T')[0]
+        inputs[0].min = minFecha
+        let minFechaSeparada = fechaActual.toISOString().split('T')[0].split("-")
+        const options = {
+            method: 'GET',
+            headers: {
+                Authorization: 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJtZXQwMS5hcGlrZXkiLCJpc3MiOiJJRVMgUExBSUFVTkRJIEJISSBJUlVOIiwiZXhwIjoyMjM4MTMxMDAyLCJ2ZXJzaW9uIjoiMS4wLjAiLCJpYXQiOjE2Mzk3NDc5MDcsImVtYWlsIjoiaWtjZXVAcGxhaWF1bmRpLm5ldCJ9.WmgNDEzi60hZ9lzj0lkmLEVgUdJN8Mw24kJacq2u9BMuhaycjTKqerRp9QmnVbez3iyqmsABu93rNPeFAuKvPIohyRBe2a1j4iclFT7Ro5slaBlhsTWiaB874mKCMbX2JSNYu_IqArqEcVblHxfZEtdT2jo1aw63-KGpggSzyYpAUeM32WGsUGs34L1CF55bwmj3risa8KMp9BfB4cOykcP4qX-lE2P2MiL0ea2lhUTWtAv943JhsHNTYKBwXU56otJwHMKPwCVL3_CwhLgYcoyFtLGKx9zFm2wTmJqegFJWtZ2CSoRBoXkefsq9atjTZ2OfSd4pPolRVo2dlCLY8g'
+            }
+        }
+        fetch(`https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zones/great_bilbao/locations/barakaldo/reports/for/${minFechaSeparada[0]}/${minFechaSeparada[1]}/${minFechaSeparada[2]}/last`, options)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("La solicitud no se pudo completar correctamente.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data.report.temperature.value)
+                console.log(data.report.humidity.value)
+            })
+        function MirarFechas() {
+            let inputs = document.querySelectorAll('input')
+            let inputSeparao = new Array()
+            for (let input of inputs) {
+                console.log(input.value.split("-"))
+                inputSeparao.push(input.value)
+                // let inputSeparao=input.value.split("-").map(function (cadena) {
+                //     return parseInt(cadena)
+                // })
+
+            }
+            let fecha = new Date()
+            let fechaDeseada = new Date()
+            fecha.setTime(Date.parse(inputSeparao[0]))
+            fechaDeseada.setTime(Date.parse(inputSeparao[1]))
+            console.log(fechaDeseada - fecha)
+            while (fecha < fechaDeseada) {
+                fecha.setDate(fecha.getDate() + 1)
+                console.log(fecha == fechaDeseada)
+            }
+            console.log(fecha + " " + fechaDeseada)
+        }
 
 
-           
-        // fetch('http://185.60.40.210/dwc/Aimar/Ajax/recibirDatosBase.php')
-        //     .then(response => {
-        //         if (!response.ok) {
-        //             throw new Error("La solicitud no se pudo completar correctamente.");
-        //         }
-        //         return response.text();
-        //     })
-        //     .then(data => {
-        //         console.log(data)
-        //         ciudades = data
-        //     })
-        // setTimeout(() => {
-        //     ciudades = DatosAleatorios(ciudades)
-        //     console.log(ciudades)
-        // }, 1000);
+
     </script>
 </body>
 
