@@ -1,8 +1,19 @@
-
-
-
-function login(event) {
+//Reocger fotmulario login y añadirle un evento para cuando se haga un submit ejecute la funcion login()
+let formLogin = document.getElementById("login")
+formLogin.addEventListener("submit", event => {
     event.preventDefault()
+    login()
+})
+//Reocger fotmulario register y añadirle un evento para cuando se haga un submit ejecute la funcion register()
+let formrRegister = document.getElementById("register")
+formrRegister.addEventListener("submit", event => {
+    event.preventDefault()
+    console.log()
+    register()
+})
+
+//Funcion para recoger los datos del formulario de login y llamar a la ruta de la API para hacer login 
+function login() {
     let data = {
         email: document.getElementById("email").value,
         password: document.getElementById("contrasena").value,
@@ -22,7 +33,8 @@ function login(event) {
             return response.json();
         })
         .then(data => {
-            localStorage.setItem("token",data["data"]["token"])
+            console.log(data["data"]["token"])
+            localStorage.setItem("token", data["data"]["token"])
             window.location.assign("APP.html")
         })
         .catch(error => {
@@ -30,7 +42,7 @@ function login(event) {
         })
 }
 
-
+//Funcion para llamar a la ruta logout de la API de laravel
 function logout() {
     let config = {
         method: 'GET',
@@ -42,11 +54,11 @@ function logout() {
     fetch("http://10.10.17.121:8086/api/logout", config)
     localStorage.removeItem("token")
     window.location.assign("index.html")
+
 }
 
-
-function register(event) {
-    event.preventDefault()
+//Funcion para recoger los datos del formulario de register y llamar a la ruta de la API para hacer register
+function register() {
     let data = {
         name: document.getElementById("usuario").value,
         email: document.getElementById("correo").value,
@@ -60,7 +72,7 @@ function register(event) {
         },
         body: JSON.stringify(data)
     }
-    console.log(config)
+
 
     fetch("http://10.10.17.121:8086/api/register", config)
         .then(response => {
@@ -70,7 +82,8 @@ function register(event) {
             return response.json();
         })
         .then(data => {
-            localStorage.setItem("token",data["data"]["token"])
+            console.log(data["data"]["token"])
+            localStorage.setItem("token", data["data"]["token"])
             window.location.assign("APP.html")
         })
         .catch(error => {
