@@ -71,14 +71,11 @@
             let fechaNumDentroFetch = fechaNum
             let fechaSeparada = fecha.toISOString().split('T')[0].split("-")
             let fechaDeseadaSeparada = fechaDeseada.toISOString().split('T')[0].split("-")
-            console.log(fechaSeparada[1] != fechaDeseadaSeparada[1])
-            while (fechaSeparada[0] != fechaDeseadaSeparada[0] && fechaSeparada[1] != fechaDeseadaSeparada[1] && fechaSeparada[2] != fechaDeseadaSeparada[2]) {
+            while ((fechaSeparada[0] != fechaDeseadaSeparada[0]) || (fechaSeparada[1] != fechaDeseadaSeparada[1]) || (fechaSeparada[2] != fechaDeseadaSeparada[2])) {
                 fechaSeparada = fecha.toISOString().split('T')[0].split("-")
-                console.log("hola")
                 RellenarDatos(fechaSeparada, fechaDeseada, fechaNumDentroFetch)
                 dias.push(fecha.toISOString().split('T')[0])
                 fecha.setDate(fecha.getDate() + 1)
-                console.log(fecha)
                 fechaNum++
                 fechaNumDentroFetch++
             }
