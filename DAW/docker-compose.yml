@@ -1,5 +1,6 @@
 version: '3.3'
 services:
+# Contenedor de laravel para coger datos de la api y guardarlos en la base
   CapDatos:
           image:  docker.io/bitnami/laravel:10
           ports:
@@ -13,7 +14,7 @@ services:
           volumes:
             - ./CapDeDatos/:/app
           command: ["php", "artisan", "schedule:work"]
-  # Plan B
+  # Plan B, apache con modulo de php y extensiones de php para ejecutar archivos .php. No funcional, problemas con CORS
   # capdatos:
   #         build: 
   #           context: ./
@@ -28,6 +29,7 @@ services:
   #          - DB_DATABASE=Aimar
   #         volumes:
   #         - ./CapturaDeDatosPHP/:/var/www/html
+  # Contenedor de laravel que contiene la API para iniciar sesion, registrarse, cerrar sesion y recibir datos de la base
   APIWeb:
           image:  docker.io/bitnami/laravel:10
           ports:
@@ -40,18 +42,21 @@ services:
           - DB_DATABASE=Aimar
           volumes:
             - ./APIWeb/:/app
+  #Contenedor con LAMP para guardar nuestra pagina web
   LAMP:
           image: httpd:latest
           ports:
           - "8082:80"
           volumes:
           - ./APP:/usr/local/apache2/htdocs/
+  #Contenedor para proxy inversa
   Inverso:
           image: nginx:latest
           ports:
           - "81:80"
           depends_on:
           - LAMP
+  #Contenedor mysql para crear la base de datos
   mysql:
     image: mysql:latest
     environment:
@@ -65,6 +70,7 @@ services:
       - '3306'
     volumes:
       - './datos-reto/mysql/:/var/lib/mysql'
+  #Contenedor phpmyadmin para tener interfaz grafica de la base de datos y comprobar que los datos funcionen
   phpmyadmin:
         image: 'phpmyadmin:latest'
         ports:
