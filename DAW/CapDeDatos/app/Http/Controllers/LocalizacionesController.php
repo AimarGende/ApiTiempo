@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Http;
 class LocalizacionesController extends Controller
 {
 
-    
+    //metodo para recoger los datos de los municipios indicados en la variable $codigos e insertarlos o actualizarlos en la base en la tabla localizaciones
     public function RecogerDatosApi()
     {
         $codigos = [
@@ -72,6 +72,7 @@ class LocalizacionesController extends Controller
         }
     }
 
+    //Aleatorizacion de datos sumando o restando 1 aleatoriamente
     public function DatosAleatorios(){
         $localizaciones = Localizacion::all();
         foreach( $localizaciones as $localizacion){

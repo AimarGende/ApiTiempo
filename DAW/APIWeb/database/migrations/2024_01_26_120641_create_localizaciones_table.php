@@ -8,6 +8,7 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     * Crea la tabla localizaciones
      */
     public function up(): void
     {

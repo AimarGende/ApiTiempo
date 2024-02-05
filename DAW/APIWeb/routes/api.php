@@ -17,9 +17,11 @@ use App\Http\Controllers\RegisterController;
 |
 */
 
+//Ruta para llamar al metodo register del RegisterController y registrar un usuario
 Route::post('register', [RegisterController::class, 'register']);
+//Ruta para llamar al metodo login del RegisterController y hacer login un usuario
 Route::post('login', [RegisterController::class, 'login']);
-
+//Ruta para recoger todos los datos de la tabla locations
 Route::get('recoger', [LocalizacionesController::class, 'RecogerDatos']);
 
 Route::middleware('auth:api')->group(function () {  

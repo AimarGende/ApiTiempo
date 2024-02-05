@@ -13,7 +13,7 @@ class RegisterController extends BaseController
 {
     /**
      * Register api
-     *
+     * Funcion para registrar a un usuario nuevo en la base
      * @return \Illuminate\Http\Response
      */
     public function register(Request $request): JsonResponse
@@ -40,7 +40,7 @@ class RegisterController extends BaseController
      
     /**
      * Login api
-     *
+     * Funcion para hacer un login a un usuario existente en la base
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request): JsonResponse
@@ -57,6 +57,7 @@ class RegisterController extends BaseController
         } 
     }
     
+    // Funcion para hacer logout y borrar todas las tokens del usuario de la base
     public function logout()
     {
         auth()->user()->tokens()->delete();

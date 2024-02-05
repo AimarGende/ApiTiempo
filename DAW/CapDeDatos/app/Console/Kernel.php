@@ -12,9 +12,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {   
-        $schedule->command('app:datos-a-p-i');
-        $schedule->command('app:datos-a-p-i')->everyFifteenMinutes();
-        $schedule->command('app:datos-aleatorios')->everyFifteenSeconds();
+        $schedule->command('app:datos-a-p-i');//Ejecucion commando para coger datos reales nada mas empezar
+        $schedule->command('app:datos-a-p-i')->everyFifteenMinutes();//Ejecucion de comando cada 15 minutos para coger datos reales de la API e insertarlos en la base
+        $schedule->command('app:datos-aleatorios')->everyFifteenSeconds();//Ejecucion de comando cada 15 segundos para coger datos de la base y aleatorizarlos
     }
 
     /**
