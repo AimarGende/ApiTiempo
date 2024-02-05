@@ -58,26 +58,21 @@
             }
         }
         function MirarFechas() {
-            let inputSeparao = new Array()
+            let inputSeparado = new Array()
             for (let input of inputs) {
-                inputSeparao.push(input.value)
+                inputSeparado.push(input.value)
             }
             let fecha = new Date()
             let fechaDeseada = new Date()
-            fecha.setTime(Date.parse(inputSeparao[0]))
-            fechaDeseada.setTime(Date.parse(inputSeparao[1]))
-            let fechaNum = fecha.toISOString().split('T')[0].split("-").map(cadena => parseInt(cadena)).reduce((suma, num) => suma + num)
-            let fechaDeseadaNum = fechaDeseada.toISOString().split('T')[0].split("-").map(cadena => parseInt(cadena)).reduce((suma, num) => suma + num)
-            let fechaNumDentroFetch = fechaNum
+            fecha.setTime(Date.parse(inputSeparado[0]))
+            fechaDeseada.setTime(Date.parse(inputSeparado[1]))
             let fechaSeparada = fecha.toISOString().split('T')[0].split("-")
             let fechaDeseadaSeparada = fechaDeseada.toISOString().split('T')[0].split("-")
             while ((fechaSeparada[0] != fechaDeseadaSeparada[0]) || (fechaSeparada[1] != fechaDeseadaSeparada[1]) || (fechaSeparada[2] != fechaDeseadaSeparada[2])) {
                 fechaSeparada = fecha.toISOString().split('T')[0].split("-")
-                RellenarDatos(fechaSeparada, fechaDeseada, fechaNumDentroFetch)
+                RellenarDatos(fechaSeparada, fechaDeseadaSeparada)
                 dias.push(fecha.toISOString().split('T')[0])
                 fecha.setDate(fecha.getDate() + 1)
-                fechaNum++
-                fechaNumDentroFetch++
             }
         }
 
@@ -92,7 +87,7 @@
         }
 
 
-        function RellenarDatos(fechaSeparada, fechaDeseada, fechaNumDentroFetch) {
+        function RellenarDatos(fechaSeparada, fechaDeseadaSeparada) {
             fetch(`https://api.euskadi.eus/euskalmet/weather/regions/basque_country/zones/great_bilbao/locations/barakaldo/reports/for/${fechaSeparada[0]}/${fechaSeparada[1]}/${fechaSeparada[2]}/last`, options)
                 .then(response => {
                     if (!response.ok) {
@@ -101,13 +96,9 @@
                     return response.json();
                 })
                 .then(data => {
-                    let fechaDeseadaSeparada= fechaDeseada.toISOString().split('T')[0].split("-")
                     temperaturas.push(data.report.temperature.value)
                     humedades.push(data.report.humidity.value)
 
-                    let fechaNumFetch = fecha.toISOString().split('T')[0].split("-").map(cadena => parseInt(cadena)).reduce((suma, num) => suma + num)
-                    let fechaDeseadaNumFetch = fechaDeseada.toISOString().split('T')[0].split("-").map(cadena => parseInt(cadena)).reduce((suma, num) => suma + num)
-                    console.log(fechaSeparada+" "+fechaDeseadaSeparada)
                     if (fechaSeparada[0] == fechaDeseadaSeparada[0] && fechaSeparada[1] == fechaDeseadaSeparada[1] && fechaSeparada[2] == fechaDeseadaSeparada[2]) {
                         graf.data.datasets[0].data = temperaturas
                         graf.data.datasets[1].data = humedades
