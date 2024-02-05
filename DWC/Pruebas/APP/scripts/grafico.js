@@ -1,4 +1,6 @@
 /*Graficos*/
+
+//Funcion para crear los dialog de los Jqueryui
 function CrearDialog(lugar) {
     let dialog = document.createElement("div")
     dialog.className += `grafico graf${lugar.nombre}`
@@ -13,7 +15,7 @@ function CrearDialog(lugar) {
     graficos.push(CrearGrafico(dialog, lugar.nombre))
 }
 
-//Funcion para ir recogiendo nuevos datos
+//Funcion para generar numeros del 1 al 20 aleatoriamente
 function NumRandom() {
     let numeros = new Array()
     for (let i = 0; i < 10; i++) {
@@ -22,6 +24,7 @@ function NumRandom() {
     return numeros
 }
 
+//Creacion de todos los graficos e inserccion en los dialog
 function CrearGrafico(dialog, lugar) {
     let canvas = document.createElement("canvas")
     canvas.id += `canv${lugar}`
@@ -52,6 +55,7 @@ function CrearGrafico(dialog, lugar) {
     return graf
 }
 
+//funcion para cerrar y abrir los dialog
 function AlternarGrafico(lugar) {
     if ($(`.graf${lugar}`).dialog("isOpen")) {
         $(`.graf${lugar}`).dialog("close")
@@ -61,6 +65,7 @@ function AlternarGrafico(lugar) {
     }
 }
 
+//Funciona para actualizar los graficos
 function ActualizarGraf() {
     graficos.forEach(grafico => {
         for (let i = 0; i < grafico.data.datasets.length; i++) {

@@ -1,3 +1,4 @@
+//Funcion para mostrar cards si estan ocultas y esconderals si se estan enseñando
 function MostrarCard(lugar) {
     let card = document.getElementsByClassName(lugar)[0]
     let color = 0
@@ -19,6 +20,7 @@ function MostrarCard(lugar) {
     return color
 }
 
+//Funcion crear las cards
 function CrearCard(lugar, cont) {
     let card = document.createElement("div")
     card.className += `card ${lugar.nombre}`
@@ -31,6 +33,7 @@ function CrearCard(lugar, cont) {
     contenedor.appendChild(card)
 }
 
+//Funcion para crear el header de las cards
 function CrearHeaderCard(cont) {
     let header = document.createElement("div")
     header.className += `header`
@@ -40,6 +43,7 @@ function CrearHeaderCard(cont) {
     return header
 }
 
+//Funcion para crear el cuerpo de las cards
 function CrearCuerpoCard(lugar) {
     let cuerpo = document.createElement("div")
     cuerpo.className += `cuerpo`
@@ -82,6 +86,7 @@ function CrearCuerpoCard(lugar) {
     return cuerpo
 }
 
+//Funcion para crear el footer de las cards
 function CrearFooterCard(lugar) {
     let footer = document.createElement("div")
     footer.className += `footer`
@@ -89,10 +94,7 @@ function CrearFooterCard(lugar) {
     return footer
 }
 
-function OcultarCard(lugar) {
-    document.getElementsByClassName(lugar)[0].style.display = "none"
-}
-
+//Funcion para ir actualizando los datos que llegan de la base
 function ActualizarInfoCard(lugar) {
     let cuerpocard = document.getElementsByClassName(`cuerpo`)
     for (let card of cuerpocard) {
@@ -125,6 +127,7 @@ function ActualizarInfoCard(lugar) {
     }
 }
 
+//Funcion para mirar el localStorage y mostrar las cards que esten en el
 function LocalStorage() {
     lugaresGuardados.forEach(lugar => {
         if (lugar != '') {

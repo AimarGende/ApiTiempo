@@ -1,9 +1,10 @@
+//Reocger fotmulario login y añadirle un evento para cuando se haga un submit ejecute la funcion login()
 let formLogin = document.getElementById("login")
 formLogin.addEventListener("submit", event => {
     event.preventDefault()
     login()
 })
-
+//Reocger fotmulario register y añadirle un evento para cuando se haga un submit ejecute la funcion register()
 let formrRegister = document.getElementById("register")
 formrRegister.addEventListener("submit", event => {
     event.preventDefault()
@@ -11,7 +12,7 @@ formrRegister.addEventListener("submit", event => {
     register()
 })
 
-
+//Funcion para recoger los datos del formulario de login y llamar a la ruta de la API para hacer login 
 function login() {
     let data = {
         email: document.getElementById("email").value,
@@ -41,7 +42,7 @@ function login() {
         })
 }
 
-
+//Funcion para llamar a la ruta logout de la API de laravel
 function logout() {
     let config = {
         method: 'GET',
@@ -53,7 +54,7 @@ function logout() {
     fetch("http://10.10.17.121:8086/api/logout", config)
 }
 
-
+//Funcion para recoger los datos del formulario de register y llamar a la ruta de la API para hacer register
 function register() {
     let data = {
         name: document.getElementById("usuario").value,
