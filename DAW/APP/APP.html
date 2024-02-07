@@ -41,7 +41,7 @@
 
     <header>
         <img src="imagenes/Logo.png" id="logo" alt="NombreAPP" height="50">
-        <p>LaFormulaDelTiempo</p><a href="">LogOut</a>
+        <p>LaFormulaDelTiempo</p><button onclick="logout()">LogOut</button>
     </header>
     <section>
         <center>
@@ -52,6 +52,7 @@
         </div>
     </section>
 
+    <script src="scripts/APILogin.js"></script>
     <script src="scripts/variables.js"></script>
     <script src="scripts/cards.js"></script>
     <script src="scripts/grafico.js"></script>
@@ -59,7 +60,7 @@
     <script src="scripts/mapa.js"></script>
     <script>
         //Main
-        if(token=="" || token =='{"message":"Invalid credentials"}'){
+        if (token == "" || token == '{"message":"Invalid credentials"}') {
             window.location.assign("index.html")
         }
         RecogerDatosBase() //Llamada a fetch para recibir los datos y crear las cards

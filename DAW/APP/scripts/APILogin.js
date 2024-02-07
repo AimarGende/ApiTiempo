@@ -1,18 +1,7 @@
-//Reocger fotmulario login y añadirle un evento para cuando se haga un submit ejecute la funcion login() y no haga lo que tiene programado por default
-let formLogin = document.getElementById("login")
-formLogin.addEventListener("submit", event => {
-    event.preventDefault()
-    login()
-})
-//Reocger fotmulario register y añadirle un evento para cuando se haga un submit ejecute la funcion register() y no haga lo que tiene programado por default
-let formrRegister = document.getElementById("register")
-formrRegister.addEventListener("submit", event => {
-    event.preventDefault()
-    register()
-})
 
 //Funcion para recoger los datos del formulario de login y llamar a la ruta de la API para hacer login en la APP
-function login() {
+function login(event) {
+    event.preventDefault()
     let data = {
         email: document.getElementById("email").value,
         password: document.getElementById("contrasena").value,
@@ -34,7 +23,7 @@ function login() {
         .then(data => {
             console.log(data["data"]["token"])
             localStorage.setItem("token", data["data"]["token"])
-            window.location.assign("algo.html")
+            window.location.assign("APP.html")
         })
         .catch(error => {
             console.error('API error:', error);
@@ -56,7 +45,8 @@ function logout() {
 }
 
 //Funcion para recoger los datos del formulario de register y llamar a la ruta de la API para registrarse en la APP
-function register() {
+function register(event) {
+    event.preventDefault()
     let data = {
         name: document.getElementById("usuario").value,
         email: document.getElementById("correo").value,
@@ -81,7 +71,7 @@ function register() {
         })
         .then(data => {
             localStorage.setItem("token", data["data"]["token"])
-            window.location.assign("algo.html")
+            window.location.assign("APP.html")
         })
         .catch(error => {
             console.error('API error:', error);

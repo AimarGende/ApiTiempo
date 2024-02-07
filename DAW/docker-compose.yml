@@ -1,5 +1,20 @@
 version: '3.3'
 services:
+#Contenedor mysql para crear la base de datos
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: 'Aimar'
+      MYSQL_USER: 'Aimar'
+      MYSQL_PASSWORD: '12345678'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - './datos-reto/mysql/:/var/lib/mysql'
+    command: ["--log_bin_trust_function_creators=1"]
 # Contenedor de laravel para coger datos de la api y guardarlos en la base
   CapDatos:
           image:  docker.io/bitnami/laravel:10
@@ -14,6 +29,8 @@ services:
           volumes:
             - ./CapDeDatos/:/app
           command: ["php", "artisan", "schedule:work"]
+          depends_on:
+            - mysql
   # Plan B, apache con modulo de php y extensiones de php para ejecutar archivos .php. No funcional, problemas con CORS
   # capdatos:
   #         build: 
@@ -42,6 +59,8 @@ services:
           - DB_DATABASE=Aimar
           volumes:
             - ./APIWeb/:/app
+          depends_on:
+            - mysql
   #Contenedor con LAMP para guardar nuestra pagina web
   LAMP:
           image: httpd:latest
@@ -58,20 +77,7 @@ services:
           - ./inverso/nginx.conf:/etc/nginx/nginx.conf
           depends_on:
           - LAMP
-  #Contenedor mysql para crear la base de datos
-  mysql:
-    image: mysql:latest
-    environment:
-      MYSQL_DATABASE: 'Aimar'
-      MYSQL_USER: 'Aimar'
-      MYSQL_PASSWORD: '12345678'
-      MYSQL_ROOT_PASSWORD: 'password'
-    ports:
-      - '3306:3306'
-    expose:
-      - '3306'
-    volumes:
-      - './datos-reto/mysql/:/var/lib/mysql'
+  
   #Contenedor phpmyadmin para tener interfaz grafica de la base de datos y comprobar que los datos funcionen
   phpmyadmin:
         image: 'phpmyadmin:latest'

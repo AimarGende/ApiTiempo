@@ -34,4 +34,4 @@ let cont = 0
 //Variable para guardar los lugares
 let lugares = new Array()
 //Varibale para guardar la token de autentificacion
-let token = localStorage.getItem('token')
+let token = localStorage.getItem('token') || ""
