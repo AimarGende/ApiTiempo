@@ -1,3 +1,4 @@
+/*Pagina principal*/
 body {
     box-sizing: border-box;
     margin: 0;
@@ -41,18 +42,33 @@ section {
 
 }
 
+img {
+    margin-left: 10%;
+    margin-top: 2%;
+    vertical-align: top;
+}
+
+#contenedor {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+#mapid {
+    height: 40vh;
+    width: 60vw;
+    z-index: 2;
+    border-radius: 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/*Cards*/
 .card {
     height: 330px;
     width: 250px;
     margin: 6vh;
 }
-
-img {
-    margin-left: 10%;
-    margin-top: 2%;
-}
-
-
 
 .header {
     background-color: rgb(38, 106, 170);
@@ -101,34 +117,20 @@ img {
     border-bottom: none;
 }
 
-
-#contenedor {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-}
-
-#mapid {
-    height: 40vh;
-    width: 60vw;
-    z-index: 2;
-    border-radius: 15px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-img {
-    vertical-align: top;
-}
-
 .grafico {
     z-index: 0;
 }
 
-.prediccion {
-    font-size: 15px;
-}
-
 .Icono {
     padding: 5px;
+}
+
+.Icono p{
+    color: rgb(38, 106, 170);
+    display: inline-block;
+}
+.Icono img{
+    display: inline-block;
+    margin-left: 2%;
+    height: 40px;
 }

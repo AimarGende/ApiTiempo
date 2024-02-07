@@ -1,10 +1,10 @@
 //Funcion para mostrar cards si estan ocultas y esconderals si se estan enseñando
 function MostrarCard(lugar) {
-    let card = document.getElementsByClassName(lugar)[0]
+    let card = document.getElementsByClassName(lugar)[0] //Encontrar la card que tenga la clase con el nombre del lugar
     let color = 0
     if (card.style.display == "none") {
         card.style.display = "block"
-        if (!lugaresGuardados.includes(card.className.split(' ')[1])) {
+        if (!lugaresGuardados.includes(card.className.split(' ')[1])) { //Si el lugar no esta en el local storage la añade
             lugaresGuardados.push(card.className.split(' ')[1])
         }
         localStorage.setItem('lugares', lugaresGuardados)
@@ -13,17 +13,16 @@ function MostrarCard(lugar) {
     else {
         card.style.display = "none"
         color--
-        lugaresGuardados = lugaresGuardados.filter(lugar => lugar != card.className.split(' ')[1])
-        console.log(lugaresGuardados)
+        lugaresGuardados = lugaresGuardados.filter(lugar => lugar != card.className.split(' ')[1]) //Filtro para eliminar el lugar de la card que acabamos de ocultar
         localStorage.setItem('lugares', lugaresGuardados)
     }
-    return color
+    return color //devovler 1 o -1 para cambiar el color del marcador
 }
 
 //Funcion crear las cards
 function CrearCard(lugar, cont) {
     let card = document.createElement("div")
-    card.className += `card ${lugar.nombre}`
+    card.className += `card ${lugar.nombre}` //Añadirle a la card la clase 'card' y el nombre del lugar
     card.style.display = "none"
     card.appendChild(CrearHeaderCard(cont))
     card.appendChild(CrearCuerpoCard(lugar))
@@ -47,25 +46,19 @@ function CrearHeaderCard(cont) {
 function CrearCuerpoCard(lugar) {
     let cuerpo = document.createElement("div")
     cuerpo.className += `cuerpo`
-    for (let key in lugar) {
+    for (let dato in lugar) {
         let div = document.createElement("div")
         div.className += "Icono"
 
         let parrafo = document.createElement("p")
-        parrafo.style.color = "rgb(38, 106, 170)"
-        parrafo.style.display = "inline-block"
-
         let img = new Image()
-        img.height = 40
-        img.style.display = "inline-block"
-        img.style.marginLeft = "2%"
 
-
-        switch (key) {
+        switch (dato) { //Para diferenciar que dato se esta poniendo en el cuerpo, es decir temperatura o humedad, y insertar las caracteristicas correspondientes
             case 'temperatura':
                 parrafo.innerHTML = "Temperatura: " + lugar.temperatura + "ºC"
                 img.src = "imagenes/Temp.png"
                 img.alt = "Temperatura"
+                //Insertar en el div la imagen y el texto
                 div.appendChild(img)
                 div.appendChild(parrafo)
                 cuerpo.appendChild(div)
@@ -74,6 +67,7 @@ function CrearCuerpoCard(lugar) {
                 parrafo.innerHTML = "Humedad: " + lugar.humedad + "%"
                 img.src = "imagenes/Humedad.png"
                 img.alt = "Humedad"
+                //Insertar en el div la imagen y el texto
                 div.appendChild(img)
                 div.appendChild(parrafo)
                 cuerpo.appendChild(div)
@@ -81,8 +75,6 @@ function CrearCuerpoCard(lugar) {
                 break;
         }
     }
-
-
     return cuerpo
 }
 
@@ -97,27 +89,25 @@ function CrearFooterCard(lugar) {
 //Funcion para ir actualizando los datos que llegan de la base
 function ActualizarInfoCard(lugar) {
     let cuerpocard = document.getElementsByClassName(`cuerpo`)
-    for (let card of cuerpocard) {
-        if (card.parentElement.className.split(" ")[1] == lugar.nombre) {
-            for (let icono of card.children) {
-                if (icono.className == "Icono") {
-                    switch (icono.children[1].innerHTML.split(": ")[0]) {
+    for (let card of cuerpocard) { //Recorrer todas las cards
+        if (card.parentElement.className.split(" ")[1] == lugar.nombre) { //Condicion para encontrar la card a la que se le quieren actualizar los datos
+            for (let icono of card.children) { // Recorrer los elemento hijo de el cuerpo de la card del lugar al que queremos actualizar los datos.
+                if (icono.className == "Icono") { //Buscar los div que tengan la clase Icono ya que son los que contienen la info
+                    switch (icono.children[1].innerHTML.split(": ")[0]) { // Coger el dato meteorologico que se esta enseñando y cambiarle el valor
                         case "Temperatura":
-                            icono.children[1].innerHTML = `Temperatura: ${lugar.temperatura}ºC` // icono.children[1].innerHTML= `Temperatura: ${lugar.temperatura}ºC`
+                            icono.children[1].innerHTML = `Temperatura: ${lugar.temperatura}ºC`
                             break;
                         case "Humedad":
-                            icono.children[1].innerHTML = `Humedad: ${lugar.humedad}%` // icono.children[1].innerHTML= `Humedad: ${lugar.humedad}ºC`
+                            icono.children[1].innerHTML = `Humedad: ${lugar.humedad}%`
                             break;
                         case "Viento":
-                            icono.children[1].innerHTML = `Viento: ${lugar.viento}m/s` // icono.children[1].innerHTML= `Viento: ${lugar.viento}ºC`
+                            icono.children[1].innerHTML = `Viento: ${lugar.viento}m/s`
                             break;
                         case "Precipitacion":
-                            icono.children[1].innerHTML = `Precipitacion: ${lugar.precipitacion}%` // icono.children[1].innerHTML= `Nubes: ${lugar.precipitacion}ºC`
+                            icono.children[1].innerHTML = `Precipitacion: ${lugar.precipitacion}%`
                             break;
                         case "Lluvia":
-                            icono.children[1].innerHTML = `Lluvia: ${lugar.lluvia}mm` // icono.children[1].innerHTML= `Lluvia: ${lugar.lluvia}ºC`
-                            break;
-                        default:
+                            icono.children[1].innerHTML = `Lluvia: ${lugar.lluvia}mm`
                             break;
                     }
 

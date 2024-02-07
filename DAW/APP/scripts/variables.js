@@ -29,10 +29,9 @@ let fechaMananaSeparada = fechaManana.toISOString().split('T')[0].split('-')
 const contenedor = document.getElementById("contenedor")
 //Array para guardar los graficos creados
 let graficos = new Array()
-//Variable contador
+//Variable contador para el drag&&drop
 let cont = 0
 //Variable para guardar los lugares
 let lugares = new Array()
-
-//Variable para guardar token de inicio de sesion
-let token = localStorage.getItem('token') || ""
+//Varibale para guardar la token de autentificacion
+let token = localStorage.getItem('token')
