@@ -25,22 +25,29 @@ function RecogerDatosBase() {
                     }
                 })
                 marker.bindTooltip(lugar.nombre, {
-                    permanent: false,    
-                    direction: 'top',    
-                    offset: L.point(-15, -8) 
+                    permanent: false,
+                    direction: 'top',
+                    offset: L.point(-15, -8)
                 })
 
 
             })
-            
+
             let clases = [] //Variable para guardar la clase con el mismo nombre de la ciudad
 
             $(".Vien,.Nube,.Lluv").on('dragstart', function (event) {
-                clases = $(this).parent().parent()[0].className.split(" ") //Guardar las clases de la card en la que se empieza el drag, es decir si la card tiene clases 'card' y 'Bilbo' se guardaria asi ['card','Bilbo']
+                if ($(this).parent().parent()[0].className == 'cuerpo') {
+
+                    clases = $(this).parent().parent().parent()[0].className.split(" ")
+                }
+                else {
+                    clases = $(this).parent().parent()[0].className.split(" ") //Guardar las clases de la card en la que se empieza el drag, es decir si la card tiene clases 'card' y 'Bilbo' se guardaria asi ['card','Bilbo']
+
+                }
                 event.originalEvent.dataTransfer.setData("text/plain", event.target.className.split(" ")[1]);
             });
 
-            $(".cuerpo").on('dragover', function (event) {
+            $(".cuerpo,.header").on('dragover', function (event) {
                 event.preventDefault();
             });
 
@@ -54,9 +61,8 @@ function RecogerDatosBase() {
                     let parrafo = document.createElement("p")
 
                     let div = document.createElement("div")
-                    div.className += "Icono"
+                    div.className += "Icono "
                     if (event.target !== draggedElement && event.target.tagName != "IMG" && event.target.tagName != "P" && event.target.className != "Icono") { //Condicion para solo poder dropear en los espacios en blanco de la card
-                        $(draggedElement).attr('draggable', false)
                         lugares.forEach(element => {
                             if (element.nombre == clases[1]) {
                                 switch (data.match(/.{1,3}./)[0]) { //Separar de el nombre de la clase el numero asignado para identificar en que lugar estaba
@@ -79,6 +85,19 @@ function RecogerDatosBase() {
                             }
                         })
                     }
+                }
+                clases = [] //Vaciar array donde se guardaban las clases de la card
+            });
+
+            $(".header").on('drop', function (event) {
+                event.preventDefault();
+                if ($(this).parent()[0].className.split(" ")[1] == clases[1]) { //Condicion para comprobar que la card donde estamos dropeando es la misma en la que hemos empezado el drag
+                    var data = event.originalEvent.dataTransfer.getData("text/plain");
+
+                    var draggedElement = document.getElementsByClassName(data)[0] //Conseguir la imagen que se esta drageando;
+                    console.log($(draggedElement).parent().parent()[0].removeChild($(draggedElement).parent()[0]))
+
+                    event.target.appendChild(draggedElement)
                 }
                 clases = [] //Vaciar array donde se guardaban las clases de la card
             });
@@ -168,13 +187,13 @@ function predicciones(card, lugar) {
 //Funcion para recoger los datos nuevos de la base de datos y asignarlos a la variable de lugares ya existente
 function ActualizarDatos() {
     fetch(`http://10.10.17.121:8086/api/recoger`)
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("La solicitud no se pudo completar correctamente.");
-        }
-        return response.json();
-    })
-    .then(data=>{
-        lugares=data.localizaciones
-    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("La solicitud no se pudo completar correctamente.");
+            }
+            return response.json();
+        })
+        .then(data => {
+            lugares = data.localizaciones
+        })
 }

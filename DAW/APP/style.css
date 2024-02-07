@@ -21,9 +21,8 @@ header {
     align-items: center;
 }
 
-header a {
-    color: white;
-    text-decoration: none;
+header button {
+    border-radius: 8px;
     margin-right: 20px;
 }
 
