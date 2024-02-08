@@ -15,6 +15,12 @@ services:
     volumes:
       - './datos-reto/mysql/:/var/lib/mysql'
     command: ["--log_bin_trust_function_creators=1"]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 5s
 # Contenedor de laravel para coger datos de la api y guardarlos en la base
   CapDatos:
           image:  docker.io/bitnami/laravel:10
@@ -30,7 +36,8 @@ services:
             - ./CapDeDatos/:/app
           command: ["php", "artisan", "schedule:work"]
           depends_on:
-            - mysql
+             mysql:
+                condition: service_healthy
   # Plan B, apache con modulo de php y extensiones de php para ejecutar archivos .php. No funcional, problemas con CORS
   # capdatos:
   #         build: 
@@ -60,7 +67,9 @@ services:
           volumes:
             - ./APIWeb/:/app
           depends_on:
-            - mysql
+            mysql:
+                condition: service_healthy
+          command: ["sh", "-c", "php artisan migrate && php artisan passport:install --force && php artisan serve --host=0.0.0.0"]
   #Contenedor con LAMP para guardar nuestra pagina web
   LAMP:
           image: httpd:latest

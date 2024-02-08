@@ -1,6 +1,6 @@
 //Funcion para recoger datos de la base la primera vez y crear el html
 function RecogerDatosBase() {
-    fetch(`http://10.10.17.121:8086/api/recoger`)
+    fetch(`http://${urlActual}:8086/api/recoger`)
         .then(response => {
             if (!response.ok) {
                 throw new Error("La solicitud no se pudo completar correctamente.");
@@ -186,7 +186,7 @@ function predicciones(card, lugar) {
 
 //Funcion para recoger los datos nuevos de la base de datos y asignarlos a la variable de lugares ya existente
 function ActualizarDatos() {
-    fetch(`http://10.10.17.121:8086/api/recoger`)
+    fetch(`http://${urlActual}:8086/api/recoger`)
         .then(response => {
             if (!response.ok) {
                 throw new Error("La solicitud no se pudo completar correctamente.");

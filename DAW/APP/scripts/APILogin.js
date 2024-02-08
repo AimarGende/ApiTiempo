@@ -1,3 +1,4 @@
+let urlActual = (new URL(window.location.origin)).hostname;
 
 //Funcion para recoger los datos del formulario de login y llamar a la ruta de la API para hacer login en la APP
 function login(event) {
@@ -13,7 +14,7 @@ function login(event) {
         },
         body: JSON.stringify(data)
     } //Variable para poder psarle a la ruta los datos y como se va a ejecutar
-    fetch("http://10.10.17.121:8086/api/login", config) //Llamada a ruta de API de login para hacer un login en la base de datos
+    fetch("http://"+urlActual+":8086/api/login", config) //Llamada a ruta de API de login para hacer un login en la base de datos
         .then(response => {
             if (!response.ok) {
                 throw new Error("La solicitud no se pudo completar correctamente.");
@@ -39,7 +40,7 @@ function logout() {
             'Authorization': `Bearer ${localStorage.getItem("token")}`
         },
     } //Variable para mandar la token a la ruta logout y esta pueda eliminarla de la base de datos
-    fetch("http://10.10.17.121:8086/api/logout", config) 
+    fetch("http://"+urlActual+":8086/api/logout", config) 
     localStorage.removeItem("token") 
     window.location.assign("index.html") 
 }
@@ -62,7 +63,7 @@ function register(event) {
     }//Variable para poder psarle a la ruta los datos
 
 
-    fetch("http://10.10.17.121:8086/api/register", config)//Llamada a la ruta para registrarse con los datos del formulario y entrar a la APP
+    fetch("http://"+urlActual+":8086/api/register", config)//Llamada a la ruta para registrarse con los datos del formulario y entrar a la APP
         .then(response => {
             if (!response.ok) {
                 throw new Error("La solicitud no se pudo completar correctamente.");
