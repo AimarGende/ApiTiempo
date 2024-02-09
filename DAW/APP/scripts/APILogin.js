@@ -27,7 +27,7 @@ function login(event) {
             window.location.assign("APP.html")
         })
         .catch(error => {
-            console.error('API error:', error);
+           alert('Usuario o contrasena equivocada')
         })
 }
 
@@ -75,6 +75,6 @@ function register(event) {
             window.location.assign("APP.html")
         })
         .catch(error => {
-            console.error('API error:', error);
+            alert('Ese mail ya esta registrado')
         })
 }

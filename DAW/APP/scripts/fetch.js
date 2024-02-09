@@ -95,7 +95,6 @@ function RecogerDatosBase() {
                     var data = event.originalEvent.dataTransfer.getData("text/plain");
 
                     var draggedElement = document.getElementsByClassName(data)[0] //Conseguir la imagen que se esta drageando;
-                    console.log($(draggedElement).parent().parent()[0].removeChild($(draggedElement).parent()[0]))
 
                     event.target.appendChild(draggedElement)
                 }
