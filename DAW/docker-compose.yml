@@ -19,7 +19,7 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       retries: 5
-      start_period: 30s
+      start_period: 10s
       timeout: 5s
 # Contenedor de laravel para coger datos de la api y guardarlos en la base
   CapDatos:
